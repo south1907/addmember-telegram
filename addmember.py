@@ -137,7 +137,7 @@ if (total_client > 0):
 			print("Error Fooling cmnr")
 			traceback.print_exc()
 			print("remove client: " + current_client['phone'])
-			current_client.disconnect()
+			client.disconnect()
 			clients.remove(current_client)
 			total_client = clients.__len__()
 			print("remain client: " + str(total_client))
