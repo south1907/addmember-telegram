@@ -136,10 +136,17 @@ if (total_client > 0):
 		except PeerFloodError as e:
 			print("Error Fooling cmnr")
 			traceback.print_exc()
-			with open(root_path + '/current_count.txt', 'w') as g:
-				g.write(str(i))
-				g.close()
-			break
+			print("remove client: " + current_client['phone'])
+			clients.remove(current_client)
+			total_client = clients.__len__()
+			print("remain client: " + str(total_client))
+			
+			if(total_client == 0):
+					
+				with open(root_path + '/current_count.txt', 'w') as g:
+					g.write(str(i))
+					g.close()
+				break
 		except UserPrivacyRestrictedError:
 			print("Error Privacy")
 		except:
