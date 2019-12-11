@@ -24,8 +24,9 @@ with open(root_path + '/phone.txt') as f:
 print(data_client)
 clients = []
 
+#TODO: change file config
 # group target
-group_target_id = 1201324407
+group_target_id = 1331409327
 
 # group source
 group_source_id = 1166894130
@@ -35,10 +36,10 @@ for row_client in data_client:
 	if(split_row_client.__len__() > 2):
 
 		# folder save session
-		phone = root_path + "/" + split_row_client[0]
+		phone = split_row_client[0]
 		api_id = int(split_row_client[1])
 		api_hash = split_row_client[2]
-		client = TelegramClient(phone, api_id, api_hash, connection=connection.ConnectionTcpMTProxyRandomizedIntermediate, proxy=('116.203.2.245', 1337, 'dd81b667f85e7e5d358de3b8e4ade6302f'))
+		client = TelegramClient(root_path + "/" + phone, api_id, api_hash, connection=connection.ConnectionTcpMTProxyRandomizedIntermediate, proxy=('116.203.2.245', 1337, 'dd81b667f85e7e5d358de3b8e4ade6302f'))
 
 		client.connect()
 
@@ -51,8 +52,10 @@ for row_client in data_client:
 		else:
 			print('dang nhap khong thanh cong')
 
+print(clients.__len__())
 for my_client in clients:
 	phone = my_client['phone']
+	print(root_path + '/data/group/' + phone + '.csv')
 	if os.path.isfile(root_path + '/data/group/' + phone + '.csv'):
 		print('vaoo')
 		# TODO read group to get group_access_hash
