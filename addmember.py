@@ -17,6 +17,7 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 print(root_path)
 
 start_time = datetime.datetime.now()
+print(start_time)
 logging.basicConfig(level=logging.WARNING)
 
 with open(root_path + '/phone.txt') as f:
@@ -64,11 +65,12 @@ for my_client in clients:
 
 		group_access_hash = None
 		for group in groups:
-			# print(group)
-			if(group_target_id == int(group[0])):
-				group_access_hash = int(group[1])
-				print('bang cmnr')
-				break
+			print(group)
+			if(group.__len__() > 2):
+				if(group_target_id == int(group[0])):
+					group_access_hash = int(group[1])
+					print('bang cmnr')
+					break
 
 		target_group_entity = InputPeerChannel(group_target_id, group_access_hash)
 
@@ -98,7 +100,8 @@ if (total_client > 0):
 	total_user = clients[0]['users'].__len__()
 	print(total_client)
 
-	for i in range(0, total_user):
+	i = 0
+	while i < total_user:
 		print(i)
 		current_index = count_add % total_client
 		print("current_index: " + str(current_index))
@@ -109,6 +112,7 @@ if (total_client > 0):
 
 		# previous run
 		if(i < previous_count):
+			i += 1
 			continue
 
 		# count_add if added 50 user
@@ -130,8 +134,8 @@ if (total_client > 0):
 				client(InviteToChannelRequest(target_group_entity,[user_to_add]))
 				print("Add thanh cong")
 				count_add += 1
-				print('sleep: ' + str(60/total_client))
-				time.sleep(60/total_client)
+				print('sleep: ' + str(90/total_client))
+				time.sleep(90/total_client)
 			
 		except PeerFloodError as e:
 			print("Error Fooling cmnr")
@@ -141,19 +145,23 @@ if (total_client > 0):
 			clients.remove(current_client)
 			total_client = clients.__len__()
 			print("remain client: " + str(total_client))
-			
 			if(total_client == 0):
 
 				with open(root_path + '/current_count.txt', 'w') as g:
 					g.write(str(i))
 					g.close()
 				break
+
+			# not increate i
+			continue
 		except UserPrivacyRestrictedError:
 			print("Error Privacy")
 		except:
 			print("Error other")
 			traceback.print_exc()
+			# break
 
+		i += 1
 		# if(count_add > 3):
 		# 	break
 

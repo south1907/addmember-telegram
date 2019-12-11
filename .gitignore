@@ -3,3 +3,5 @@ data/group/+84*
 data/user/+84*
 phone.txt
 current_count.txt
+logs.txt
+errors.txt
