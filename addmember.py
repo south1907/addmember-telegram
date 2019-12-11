@@ -11,14 +11,17 @@ import random
 import time
 import traceback
 import datetime
-import os.path
+import os
+
+root_path = os.path.dirname(os.path.abspath(__file__))
+print(root_path)
 
 start_time = datetime.datetime.now()
 logging.basicConfig(level=logging.WARNING)
 
-with open('phone.txt') as f:
+with open(root_path + '/phone.txt') as f:
 	data_client = f.read().split("\n")
-
+print(data_client)
 clients = []
 
 # group target
@@ -30,23 +33,30 @@ group_source_id = 1166894130
 for row_client in data_client:
 	split_row_client = row_client.split(";")
 	if(split_row_client.__len__() > 2):
-		phone = split_row_client[0]
+
+		# folder save session
+		phone = root_path + "/" + split_row_client[0]
 		api_id = int(split_row_client[1])
 		api_hash = split_row_client[2]
-
 		client = TelegramClient(phone, api_id, api_hash, connection=connection.ConnectionTcpMTProxyRandomizedIntermediate, proxy=('116.203.2.245', 1337, 'dd81b667f85e7e5d358de3b8e4ade6302f'))
 
 		client.connect()
-		clients.append({
-			'phone': phone,
-			'client': client
-		})
+
+		if (client.is_user_authorized()):
+			print('dang nhap thanh cong')
+			clients.append({
+				'phone': phone,
+				'client': client
+			})
+		else:
+			print('dang nhap khong thanh cong')
 
 for my_client in clients:
 	phone = my_client['phone']
-	if os.path.isfile('data/group/' + phone + '.csv'):
+	if os.path.isfile(root_path + '/data/group/' + phone + '.csv'):
+		print('vaoo')
 		# TODO read group to get group_access_hash
-		with open('data/group/' + phone + '.csv', encoding='utf-8') as f:
+		with open(root_path + '/data/group/' + phone + '.csv', encoding='utf-8') as f:
 			groups = [x.split(";") for x in f.read().split("\n")]
 
 		group_access_hash = None
@@ -59,23 +69,25 @@ for my_client in clients:
 
 		target_group_entity = InputPeerChannel(group_target_id, group_access_hash)
 
-		if os.path.isfile('data/user/' + phone + "_" + str(group_source_id) + '.csv'):
+		if os.path.isfile(root_path + '/data/user/' + phone + "_" + str(group_source_id) + '.csv'):
 			# add target_group_entity key value
 			my_client['target_group_entity'] = target_group_entity
 			# TODO read user, add users list
-			with open('data/user/' + phone + "_" + str(group_source_id) + '.csv', encoding='utf-8') as f:
+			with open(root_path + '/data/user/' + phone + "_" + str(group_source_id) + '.csv', encoding='utf-8') as f:
 				users = [x.split(";") for x in f.read().split("\n")]
 				my_client['users'] = users
 		else:
+			print('khooeoe 2')
 			clients.remove(my_client)
 
 	else:
+		print('khooeoe')
 		clients.remove(my_client)
 
 total_client = clients.__len__()
 
 previous_count = 0
-with open('current_count.txt') as f:
+with open(root_path + '/current_count.txt') as f:
 	previous_count = int(f.read())
 
 count_add = 0
@@ -84,7 +96,7 @@ if (total_client > 0):
 	print(total_client)
 
 	for i in range(0, total_user):
-		
+		print(i)
 		current_index = count_add % total_client
 		print("current_index: " + str(current_index))
 		current_client = clients[current_index]
@@ -97,9 +109,12 @@ if (total_client > 0):
 			continue
 
 		# count_add if added 50 user
-		if count_add % 50 == 49:
-			print('sleep: ' + str(900/total_client))
-			time.sleep(900/total_client)
+		if count_add % (50 * total_client) == (50 * total_client - 1):
+			print('Thoat ra sau 15 phut chay tiep')
+			with open(root_path + '/current_count.txt', 'w') as g:
+				g.write(str(i))
+				g.close()
+			break
 
 		try:
 			if(user.__len__() > 1):
@@ -117,8 +132,8 @@ if (total_client > 0):
 			
 		except PeerFloodError as e:
 			print("Error Fooling cmnr")
-
-			with open('current_count.txt', 'w') as g:
+			traceback.print_exc()
+			with open(root_path + '/current_count.txt', 'w') as g:
 				g.write(str(i))
 				g.close()
 			break
@@ -131,7 +146,9 @@ if (total_client > 0):
 		# if(count_add > 3):
 		# 	break
 
-
+print("disconnect")
+for cli in clients:
+	cli['client'].disconnect()
 end_time = datetime.datetime.now()
 print("total: " + str(count_add))
 print("total time: " + str(end_time - start_time))
