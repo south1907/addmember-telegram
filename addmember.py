@@ -134,8 +134,8 @@ if (total_client > 0):
 				client(InviteToChannelRequest(target_group_entity,[user_to_add]))
 				print("Add thanh cong")
 				count_add += 1
-				print('sleep: ' + str(90/total_client))
-				time.sleep(90/total_client)
+				print('sleep: ' + str(120/total_client))
+				time.sleep(120/total_client)
 			
 		except PeerFloodError as e:
 			print("Error Fooling cmnr")
