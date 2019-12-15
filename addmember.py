@@ -115,8 +115,8 @@ if (total_client > 0):
 			i += 1
 			continue
 
-		# count_add if added 50 user
-		if count_add % (50 * total_client) == (50 * total_client - 1):
+		# count_add if added 35 user
+		if count_add % (35 * total_client) == (35 * total_client - 1):
 			print('Thoat ra sau 15 phut chay tiep')
 			with open(root_path + '/current_count.txt', 'w') as g:
 				g.write(str(i))
