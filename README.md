@@ -1,6 +1,6 @@
 # addmember-telegram
 Add member auto to telegram group
-
+Note: need about 20 accounts to run
 ### init session
 run init session to create session for on phone
 
