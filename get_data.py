@@ -53,7 +53,7 @@ def get_data_group(client, phone):
 		except Exception as e:
 			print(e)
 			print('error save group')
-	with open('data/group/' + phone + '.json', 'w') as f:
+	with open('data/group/' + phone + '.json', 'w', encoding='utf-8') as f:
 		json.dump(results, f, indent=4, ensure_ascii=False)
 
 def get_data_user(client, group):
@@ -70,11 +70,11 @@ def get_data_user(client, group):
 			'username': str(user.username)
 		}
 		results.append(tmp)
-	with open('data/user/' + phone + "_" + group_id +'.json', 'w') as f:
+	with open('data/user/' + phone + "_" + group_id +'.json', 'w', encoding='utf-8') as f:
 		json.dump(results, f, indent=4, ensure_ascii=False)
 
 		
-with open('config.json', 'r') as f:
+with open('config.json', 'r', encoding='utf-8') as f:
 	config = json.loads(f.read())
 
 accounts = config['accounts']
