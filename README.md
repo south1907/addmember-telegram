@@ -10,7 +10,6 @@ Use `python 3` to add member from Group A to Group B (migrate member of your gro
 * Your group is Supper group
 
 ![Supper group](images/note_tele.png)
-Format: ![Supper group](images/note_tele.png)
 ![Upgraded Supper group](images/note_tele2.png)
 
 ## Guide line
@@ -40,9 +39,11 @@ Copy file config.json from config.example.json
 `accounts`: list account Telegram; each phone, create app in https://my.telegram.org/apps and have api_id, api_hash
 
 * Step 3: After have file `config.json`, run `python init_session.py`, enter phone and the code you received
+
 ![Init session](images/step1.png)
 
 * Step 4: run `python get_data.py` to get data of group, data user and save file in folder `data`
+
 ![Get data](images/step2.png)
 ![Data after Get](images/data_step2.png)
 
@@ -66,8 +67,10 @@ Logic:
 	* Break if don't have account
 
 Note: If your account blocked, get link https://web.telegram.org/#/im?p=@SpamBot and chat /start to see time released
+
 ![Get data](images/block.png)
 
 Done!
 
-Ps: Because some people interesting my repository create some issue, inbox Telegram. I don't have time to solve it, so I update your script to be good. I will open issue and try to resolved it. But some thing about basic language `python`, please search Internet before create issue! Thanks!
+## Ps: 
+Because some people interesting my repository create some issue, inbox Telegram. I don't have time to solve it, so I update your script to be good. I will open issue and try to resolved it. But some thing about basic language `python`, please search Internet before create issue! Thanks!
