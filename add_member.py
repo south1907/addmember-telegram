@@ -36,7 +36,9 @@ group_target_id = config['group_target']
 # group source
 group_source_id = config['group_source']
 #date_online_from
-from_date_active = config['from_date_active']
+from_date_active = '19700101'
+if 'from_date_active' in config:
+	from_date_active = config['from_date_active']
 
 # list client
 clients = []
