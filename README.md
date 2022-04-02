@@ -1,13 +1,13 @@
 # addmember-telegram
-Use `python 3` to add member from Group A to Group B (migrate member of your group)
+Use `python 3` to add member from Group A to Group B (migrate members of your group)
 
 
 ## Require
 * Environment of python 3 (Linux, Window)
-* Need about 20 accounts to run (Avoid block account Telegram)
-* Each account need in Source Group and Target Group
-* Notice you region phone
-* Your group is Supper group
+* Need about 20 accounts to run (Switches accounts automatically when blocked)
+* Each account needs to be in Source Group and Target Group
+* Notice your region phone
+* Your group must be a Super group
 
 https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
 
@@ -37,10 +37,10 @@ Copy file config.json from config.example.json
 	]
 }
 ```
-`group_target` and `group_source`: after run get_data.py and check file in data/group
-`accounts`: list account Telegram; each phone, create app in https://my.telegram.org/apps and have api_id, api_hash
+`group_target` and `group_source`: after running get_data.py, check files in data/group
+`accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
 
-* Step 3: After have file `config.json`, run `python init_session.py`, enter phone and the code you received
+* Step 3: After setting up your `config.json` file, run `python init_session.py`, enter phone and the code you received
 
 ![Init session](images/step1.png)
 
@@ -63,16 +63,27 @@ After run get data, check again file in data/group and edit file config to chang
 
 * Step 5: run `python add_member.py` to add member from `group_source` to `group_target`
 Logic: 
-	* after add 1 member, sleep 2 minutes
-	* each account add 35 member --> sleep 15 minutes
-	* Remove account when Exception Flood
-	* Break if don't have account
+	* after adding 1 member, sleep 2 minutes
+	* after each account adds 35 members --> sleep 15 minutes
+	* Remove account when there is a Flood Wait Error
+	* Break if there are no more accounts
 
-Note: If your account blocked, get link https://web.telegram.org/#/im?p=@SpamBot and chat /start to see time released
+Note: If your account gets blocked, go to https://web.telegram.org/#/im?p=@SpamBot and chat /start to see the time the ban would be lifted
 
 ![Get data](images/block.png)
 
 Done!
 
 ## Ps: 
-Because some people interesting my repository create some issue, inbox Telegram. I don't have time to solve it, so I update your script to be good. I will open issue and try to resolved it. But some thing about basic language `python`, please search Internet before create issue! Thanks!
+This repo is now actively being maintained and updated by:
+south1907 and DanielTheGeek.
+
+Create a new issue if you have legit issues and we will do our best to resolve them.
+
+## Contributing:
+* Fork the repo on Github
+* Clone the repo using `git clone addmember-telegram`
+* Make changes and stage the files: `git add .`
+* Commit the changes: `git commit -m "Changed a few things"`
+* Push the changes to your Github repo: `git push -u origin main`
+* Submit a pull request.
