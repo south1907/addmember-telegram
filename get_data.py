@@ -4,6 +4,8 @@ from telethon import sync, TelegramClient, events
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty, UserStatusOffline, UserStatusRecently, UserStatusLastMonth, \
     UserStatusLastWeek
+from telethon.tl.types import ChannelParticipantsSearch
+from telethon.tl.functions.channels import GetParticipantsRequest
 import json
 from datetime import datetime, timedelta
 
@@ -65,7 +67,22 @@ def get_data_user(client, group):
     group_id = str(group.id)
     print(group_id)
 
-    all_participants = client.get_participants(group, aggressive=True)
+    while_condition = True
+    my_filter = ChannelParticipantsSearch('')
+    offset = 0
+    all_participants = []
+    
+    while while_condition:
+        participants = client(GetParticipantsRequest(channel=group,  offset= offset, filter = my_filter, limit=200, hash=0))
+        
+        all_participants.extend(participants.users)
+        offset += len(participants.users)
+        
+        print(len(participants.users))
+        
+        if len(participants.users) < 1 :
+            while_condition = False
+            
     results = []
     today = datetime.now()
     last_week = today + timedelta(days=-7)
