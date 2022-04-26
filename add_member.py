@@ -143,10 +143,10 @@ while i < total_user:
     target_group_entity = current_client['target_group_entity']
 
     try:
-        print('add member: ' + user['user_id'])
+        print('Adding member: ' + user['username'])
         user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
-        print('Add member '+ user['user_id'] +' success')
+        print('Added member '+ user['username'] +' successfully ;-)')
         count_add += 1
         print('sleep: ' + str(120 / total_client))
         time.sleep(120 / total_client)
@@ -162,6 +162,14 @@ while i < total_user:
         continue
     except UserPrivacyRestrictedError:
         print("Error Privacy")
+    except FloodWaitError as e:
+    	print("Error Fooling cmnr")
+    	traceback.print_exc()
+    	print("remove client: " + current_client['phone'])
+    	client.disconnect()
+    	filter_clients.remove(current_client)
+    	
+    	continue
     except:
         print("Error other")
     # break
