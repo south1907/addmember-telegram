@@ -51,6 +51,7 @@ def get_data_group(client, phone):
                 'group_id': str(group.id),
                 'access_hash': str(group.access_hash),
                 'title': str(group.title),
+                "type" : "group" if group.megagroup else "channel"
             }
             results.append(tmp)
 
@@ -71,18 +72,18 @@ def get_data_user(client, group):
     my_filter = ChannelParticipantsSearch('')
     offset = 0
     all_participants = []
-    
+
     while while_condition:
         participants = client(GetParticipantsRequest(channel=group,  offset= offset, filter = my_filter, limit=200, hash=0))
-        
+
         all_participants.extend(participants.users)
         offset += len(participants.users)
-        
+
         print(len(participants.users))
-        
+
         if len(participants.users) < 1 :
             while_condition = False
-            
+
     results = []
     today = datetime.now()
     last_week = today + timedelta(days=-7)
