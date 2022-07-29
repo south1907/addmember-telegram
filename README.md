@@ -80,6 +80,8 @@ south1907 and DanielTheGeek.
 
 Create a new issue if you have legit issues and we will do our best to resolve them.
 
+You can join the community on Telegram via https://t.me/amtcommunity
+
 ## Contributing:
 * Fork the repo on Github
 * Clone the repo using `git clone addmember-telegram`
