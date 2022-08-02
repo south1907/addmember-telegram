@@ -87,3 +87,5 @@ Create a new issue if you have legit issues and we will do our best to resolve t
 * Commit the changes: `git commit -m "Changed a few things"`
 * Push the changes to your Github repo: `git push -u origin main`
 * Submit a pull request.
+
+Join group telegram: https://t.me/+1pApKsgj2Ns5MGI1
