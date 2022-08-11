@@ -88,4 +88,4 @@ Create a new issue if you have legit issues and we will do our best to resolve t
 * Push the changes to your Github repo: `git push -u origin main`
 * Submit a pull request.
 
-Join group telegram: https://t.me/+1pApKsgj2Ns5MGI1
+Join group telegram: https://t.me/amtcommunity
