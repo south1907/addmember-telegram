@@ -121,7 +121,7 @@ while i < total_user:
         print('sleep 2hr')
         stopcount += 1
         #time.sleep(120 * 60)
-        for i in xrange(7199,0,-1):
+        for i in range(7199,0,-1):
           sys.stdout.write("Time Left : "+str(datetime.timedelta(seconds=i)))
           sys.stdout.flush()
           time.sleep(1)
