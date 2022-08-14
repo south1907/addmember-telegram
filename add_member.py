@@ -1,4 +1,5 @@
 import logging
+import sys
 from telethon import sync, TelegramClient, events
 from telethon.tl.types import InputPeerChannel
 from telethon.tl.types import InputPeerUser
@@ -94,6 +95,7 @@ for my_client in clients:
 # run
 previous_count = 0
 count_add = 0
+stopcount = 0
 
 try:
     with open(root_path + '/current_count.txt') as f:
@@ -115,10 +117,17 @@ while i < total_user:
         continue
 
     # count_add if added 35 user
-    if count_add % (35 * total_client) == (35 * total_client - 1):
-        print('sleep 15 minute')
-        time.sleep(15 * 60)
-
+    if count_add == (35 * total_client):
+        print('sleep 2hr')
+        stopcount += 1
+        #time.sleep(120 * 60)
+        for i in xrange(7199,0,-1):
+          sys.stdout.write("Time Left : "+str(datetime.timedelta(seconds=i)))
+          sys.stdout.flush()
+          time.sleep(1)
+        if stopcount == 2:
+            for my_client in clients:
+              filter_clients.append(my_client) if my_client not in filter_client else filter_client
     total_client = filter_clients.__len__()
     print("remain client: " + str(total_client))
     if total_client == 0:
@@ -150,6 +159,10 @@ while i < total_user:
         count_add += 1
         print('sleep: ' + str(120 / total_client))
         time.sleep(120 / total_client)
+        tooot = previous_count+count_add
+        with open(root_path + '/current_count.txt', 'w') as g:
+            g.write(str(tooot))
+            g.close()
 
     except PeerFloodError as e:
         print("Error Fooling cmnr")

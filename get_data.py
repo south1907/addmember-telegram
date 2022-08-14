@@ -10,7 +10,10 @@ import json
 from datetime import datetime, timedelta
 
 logging.basicConfig(level=logging.WARNING)
-
+with open('config.json', 'r', encoding='utf-8') as mm:
+    config = json.loads(mm.read())
+group_source_id = config['group_source']
+group_target_id = config['group_target']
 
 def get_group(phone, api_id, api_hash):
     folder_session = 'session/'
@@ -53,11 +56,27 @@ def get_data_group(client, phone):
                 'title': str(group.title),
                 "type" : "group" if group.megagroup else "channel"
             }
+            tmp2 = {
+                'group_id': str(group_source_id),
+                'access_hash': str(group.access_hash),
+                'title': str(group.title),
+                "type" : "group" if group.megagroup else "channel"
+            }
+            tmp3 = {
+                'group_id': str(group_target_id),
+                'access_hash': str(group.access_hash),
+                'title': str(group.title),
+                "type" : "group" if group.megagroup else "channel"
+            }
             results.append(tmp)
 
-            if group.megagroup == True:
+            if tmp == tmp2:
+                get_data_user(client, group)
+            if tmp == tmp3:
                 get_data_user(client, group)
         except Exception as e:
+            print(e)
+            print('error save group')
             print(e)
             print('error save group')
     with open('data/group/' + phone + '.json', 'w', encoding='utf-8') as f:
