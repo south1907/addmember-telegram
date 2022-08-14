@@ -157,8 +157,11 @@ while i < total_user:
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
         print('Added member '+ user['username'] +' successfully ;-)')
         count_add += 1
-        print('sleep: ' + str(120 / total_client))
-        time.sleep(120 / total_client)
+        sleepti = int(120 / total_client)
+        for i in range(sleepti,0,-1):
+          timelft = str(datetime.timedelta(seconds=i))
+          print("Sleep : "+ timelft, end="\r")
+          time.sleep(1)
         tooot = previous_count+count_add
         with open(root_path + '/current_count.txt', 'w') as g:
             g.write(str(tooot))
