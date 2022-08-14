@@ -44,7 +44,8 @@ Copy file config.json from config.example.json
 
 ![Init session](images/step1.png)
 
-* Step 4: run `python get_data.py` to get data of group, data user and save file in folder `data`
+* Step 4: run `python get_data.py` to get data of group, data user and save file in folder `data` [Only Fetch Config groups]
+* Note: run `python get_data.py` again if you have changed source_id or traget_id
 
 ![Get data](images/step2.png)
 ![Data after Get](images/data_step2.png)
