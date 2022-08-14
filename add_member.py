@@ -122,8 +122,8 @@ while i < total_user:
         stopcount += 1
         #time.sleep(120 * 60)
         for i in range(7199,0,-1):
-          sys.stdout.write("Time Left : "+str(datetime.timedelta(seconds=i)))
-          sys.stdout.flush()
+          timelft = str(datetime.timedelta(seconds=i))
+          print("Time Left : "+ timelft, end="\r")
           time.sleep(1)
         if stopcount == 2:
             for my_client in clients:
