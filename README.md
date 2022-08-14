@@ -28,6 +28,7 @@ Copy file config.json from config.example.json
 {
 	"group_target": 1398120166, --> id target group
 	"group_source": 1490302444, --> id source group
+    "group_source_username": "https://t.me/groupname", --> address of source group
 	"accounts": [ --> array account
 		{
 			"phone": "+84XXXX",
@@ -37,15 +38,14 @@ Copy file config.json from config.example.json
 	]
 }
 ```
-`group_target` and `group_source`: after running get_data.py, check files in data/group
+`group_target` and `group_source`: after running add_st.py, check files in data/group
 `accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
 
 * Step 3: After setting up your `config.json` file, run `python init_session.py`, enter phone and the code you received
 
 ![Init session](images/step1.png)
 
-* Step 4: run `python get_data.py` to get data of group, data user and save file in folder `data` [Only Fetch Config groups]
-* Note: run `python get_data.py` again if you have changed source_id or traget_id
+* Step 4: run `python add_st.py` to get data of group, data user and save file in folder `data`
 
 ![Get data](images/step2.png)
 ![Data after Get](images/data_step2.png)
