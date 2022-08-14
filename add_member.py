@@ -121,9 +121,9 @@ while i < total_user:
         print('sleep 2hr')
         stopcount += 1
         #time.sleep(120 * 60)
-        for i in xrange(7199,0,-1):
-          sys.stdout.write("Time Left : "+str(datetime.timedelta(seconds=i)))
-          sys.stdout.flush()
+        for i in range(7199,0,-1):
+          timelft = str(datetime.timedelta(seconds=i))
+          print("Time Left : "+ timelft, end="\r")
           time.sleep(1)
         if stopcount == 2:
             for my_client in clients:
@@ -157,8 +157,11 @@ while i < total_user:
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
         print('Added member '+ user['username'] +' successfully ;-)')
         count_add += 1
-        print('sleep: ' + str(120 / total_client))
-        time.sleep(120 / total_client)
+        sleepti = int(120 / total_client)
+        for i in range(sleepti,0,-1):
+          timelft = str(datetime.timedelta(seconds=i))
+          print("Sleep : "+ timelft, end="\r")
+          time.sleep(1)
         tooot = previous_count+count_add
         with open(root_path + '/current_count.txt', 'w') as g:
             g.write(str(tooot))
