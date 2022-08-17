@@ -47,7 +47,7 @@ Copy file config.json from config.example.json
 
 * Step 4: run `python add_st.py` to get data of group, data user and save file in folder `data`
 
-### Note ** If U cant get Group link add all the users to source group**  and run python get_data.py
+### Note If U cant get Group link add all the users to source group and run python get_data.py
 
 
 ![Get data](images/step2.png)
