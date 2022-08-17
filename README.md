@@ -89,4 +89,7 @@ Create a new issue if you have legit issues and we will do our best to resolve t
 * Push the changes to your Github repo: `git push -u origin main`
 * Submit a pull request.
 
-Join group telegram: https://t.me/amtcommunity
+## More info
+Wiki: [Link Wiki](https://github.com/south1907/addmember-telegram/wiki/1.-Welcome)
+
+Telegram Group: [Link group](https://t.me/amtcommunity)
