@@ -20,9 +20,13 @@ https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
 ```
 pip install telethon
 ```
-pip install readchar
-```
+> pip install readchar
+
 * Step 2: Run python make_config.py
+
+`group_target` and `group_source`: after running add_st.py, check files in data/group
+`accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
+
 ```
 {
 	"group_target": 1398120166, --> id target group
@@ -37,8 +41,6 @@ pip install readchar
 	]
 }
 ```
-`group_target` and `group_source`: after running add_st.py, check files in data/group
-`accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
 
 
 > To Edit ur config.json open config.json and add new data in ,{} as shown above dont use make_config.py.  it will overwrite on config.json
