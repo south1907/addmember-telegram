@@ -88,8 +88,12 @@ def handler(signum, frame):
         print("    ", end="\r", flush=True)
 
 
-signal.signal(signal.SIGINT, handler)
-signal.signal(signal.SIGTSTP, handler)
+if platform.system() == 'Windows':
+      signal.signal(signal.SIGTERM, handler)
+      signal.signal(signal.SIGINT, handler)
+else:         
+      signal.signal(signal.SIGINT, handler)
+      signal.signal(signal.SIGTSTP, handler)
 
 
 def clientlist():
