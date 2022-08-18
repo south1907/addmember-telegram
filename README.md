@@ -23,8 +23,7 @@ pip install telethon
 pip install readchar
 ```
 
-* Step 2: Create file config.json
-Copy file config.json from config.example.json
+* Step 2: Run python make_config.py
 
 ```
 {
@@ -42,6 +41,8 @@ Copy file config.json from config.example.json
 ```
 `group_target` and `group_source`: after running add_st.py, check files in data/group
 `accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
+
+> To Edit ur config.json open config.json and add new number dont use make_config.py.  it will overwrite on config.json
 
 * Step 3: After setting up your `config.json` file, run `python init_session.py`, enter phone and the code you received
 
@@ -82,7 +83,7 @@ Done!
 
 > You can Stop The script By crtl+z or crtl+c. type y
 
-1. add ur data
+1. python make_config.py
 2. pip install -r requirements.txt
 3. run `python add_st.py`
 4. run `python add_member.py`
