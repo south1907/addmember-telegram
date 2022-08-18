@@ -19,8 +19,9 @@ https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
 * Step 1: Install package `telethon` `readchar`
 ```
 pip install telethon
+
+pip install readchar
 ```
-> pip install readchar
 
 * Step 2: Run python make_config.py
 
