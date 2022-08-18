@@ -238,9 +238,9 @@ with open(root_path + '/current_count.txt', 'w') as g:
     g.close()
 print("disconnect")
 
+extime = 2 * total_user
 
-
-print("exiting program wait For  Some Seconds")
+print("exiting program wait For " + str(extime) + " Seconds")
 for cli in clients:
     cli['client'].disconnect()
     time.sleep(2)
