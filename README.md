@@ -107,6 +107,6 @@ Create a new issue if you have legit issues and we will do our best to resolve t
 ## More info
 Wiki: [Link Wiki](https://github.com/south1907/addmember-telegram/wiki/1.-Welcome)
 
-[Alpha-Branch For Code](https://github.com/nimma0001/addmember-telegram)
+Alpha-Branch: [Link For Branch](https://github.com/nimma0001/addmember-telegram)
 
 Telegram Group: [Link group](https://t.me/amtcommunity)
