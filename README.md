@@ -48,7 +48,7 @@ pip install readchar
 > To Edit ur config.json open config.json and add new data in ,{} as shown above dont use make_config.py.  it will overwrite on config.json
 
 
-* Step 3: After setting up your `config.json` or running python make_config.py file, run `python init_session.py`, enter phone and the code you received
+* Step 3: After setting up your `config.json` or running `python make_config.py` file, run `python init_session.py`, enter phone and the code you received
 
 ![Init session](images/step1.png)
 
