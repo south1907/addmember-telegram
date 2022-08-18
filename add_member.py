@@ -14,6 +14,13 @@ import os
 import json
 
 
+def updatecount():
+    tooot = previous_count + count_add
+    with open(root_path + '/current_count.txt', 'w') as g:
+        g.write(str(tooot))
+        g.close()
+
+
 def get_group_by_id(groups, group_id):
     for group in groups:
         if (group_id == int(group['group_id'])):
@@ -119,7 +126,8 @@ def clientlist():
         else:
             print(
                 'This account with phone do not have data. Please run get_data or init_session')
-             
+
+
 clientlist()
 
 # run
@@ -195,13 +203,10 @@ while i < total_user:
         count_add += 1
         print('sleep: ' + str(120 / total_client))
         time.sleep(120 / total_client)
-        tooot = previous_count+count_add
-        with open(root_path + '/current_count.txt', 'w') as g:
-            g.write(str(tooot))
-            g.close()
-
+        updatecount()
     except PeerFloodError as e:
         count_add += 1
+        updatecount()
         print("Error Fooling cmnr")
         traceback.print_exc()
         print("remove client: " + current_client['phone'])
@@ -211,9 +216,11 @@ while i < total_user:
         # not increate i
         continue
     except UserPrivacyRestrictedError:
+        count_add += 1
         print("Error Privacy")
     except FloodWaitError as e:
         count_add += 1
+        updatecount()
         print("Error Flood wait")
         traceback.print_exc()
         print("remove client: " + current_client['phone'])
@@ -228,19 +235,22 @@ while i < total_user:
         print("total: " + str(count_add))
         print("total time: " + str(end_time - start_time))
         sys.exit()
-    except:
+    except BaseException:
+        count_add += 1
         print("Error other")
-
     i += 1
 
 with open(root_path + '/current_count.txt', 'w') as g:
     g.write(str(i))
     g.close()
 print("disconnect")
+extime = str(2 * total_client)
+if extime == str(0):
+    print("exiting program wait For Some Seconds")
+else:
+    print("exiting program wait For" + extime + " Some Seconds")
 
 
-
-print("exiting program wait For  Some Seconds")
 for cli in clients:
     cli['client'].disconnect()
     time.sleep(2)
