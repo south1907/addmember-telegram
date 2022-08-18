@@ -42,7 +42,7 @@ pip install readchar
 `group_target` and `group_source`: after running add_st.py, check files in data/group
 `accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
 
-> To Edit ur config.json open config.json and add new date dont use make_config.py.  it will overwrite on config.json
+> To Edit ur config.json open config.json and add new data in ,{} as shown above dont use make_config.py.  it will overwrite on config.json
 
 * Step 3: After setting up your `config.json` file, run `python init_session.py`, enter phone and the code you received
 
