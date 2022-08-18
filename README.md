@@ -16,9 +16,11 @@ https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
 
 ## Guide line
 
-* Step 1: Install package `telethon`
+* Step 1: Install package `telethon` `readchar`
 ```
 pip install telethon
+```
+pip install readchar
 ```
 
 * Step 2: Create file config.json
@@ -81,9 +83,10 @@ Done!
 > You can Stop The script By crtl+z or crtl+c. type y
 
 1. add ur data
-2. run `python add_st.py`
-3. run `python add_member.py`
-4. use Crtl+z or Crtl+c to stop the script
+2. pip install -r requirements.txt
+3. run `python add_st.py`
+4. run `python add_member.py`
+5. use Crtl+z or Crtl+c to stop the script
 
 ## Ps: 
 This repo is now actively being maintained and updated by:
