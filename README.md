@@ -95,13 +95,13 @@ https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
 </details>
 
 ### Short Guide
-'''
+```
 1. python make_config.py
 2. pip install -r requirements.txt
 3. run `python add_st.py`
 4. run `python add_member.py`
 5. use Crtl+z or Crtl+c to stop the script
-'''
+ ```
 ## member info:
 
 - member are filter out from ur group so u wont have already invited member from other source group.
