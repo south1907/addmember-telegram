@@ -2,6 +2,7 @@ import logging
 import signal
 import readchar
 import sys
+import platform
 from telethon import sync, TelegramClient, events
 from telethon.tl.types import InputPeerChannel
 from telethon.tl.types import InputPeerUser
@@ -13,12 +14,24 @@ import datetime
 import os
 import json
 
+root_path = os.path.abspath(os.curdir)
+
+previous_count = 0
+count_add = 0
+
 
 def updatecount():
     tooot = previous_count + count_add
     with open(root_path + '/current_count.txt', 'w') as g:
         g.write(str(tooot))
         g.close()
+
+
+try:
+    with open(root_path + '/current_count.txt') as f:
+        previous_count = int(f.read())
+except Exception as e:
+    pass
 
 
 def get_group_by_id(groups, group_id):
@@ -28,8 +41,8 @@ def get_group_by_id(groups, group_id):
     return None
 
 
-root_path = os.path.dirname(os.path.abspath(__file__))
 print(root_path)
+
 
 start_time = datetime.datetime.now()
 logging.basicConfig(level=logging.WARNING)
@@ -81,6 +94,7 @@ def handler(signum, frame):
         for cli in clients:
             cli['client'].disconnect()
             print("")
+        updatecount()
         sys.exit()
     else:
         print("", end="\r", flush=True)
@@ -89,11 +103,11 @@ def handler(signum, frame):
 
 
 if platform.system() == 'Windows':
-      signal.signal(signal.SIGTERM, handler)
-      signal.signal(signal.SIGINT, handler)
-else:         
-      signal.signal(signal.SIGINT, handler)
-      signal.signal(signal.SIGTSTP, handler)
+    signal.signal(signal.SIGTERM, handler)
+    signal.signal(signal.SIGINT, handler)
+else:
+    signal.signal(signal.SIGINT, handler)
+    signal.signal(signal.SIGTSTP, handler)
 
 
 def clientlist():
@@ -135,15 +149,6 @@ def clientlist():
 clientlist()
 
 # run
-previous_count = 0
-count_add = 0
-stopcount = 0
-
-try:
-    with open(root_path + '/current_count.txt') as f:
-        previous_count = int(f.read())
-except Exception as e:
-    pass
 
 print('From index: ' + str(previous_count))
 total_client = len(filter_clients)
@@ -161,7 +166,7 @@ while i < total_user:
     # count_add if added 35 user
     if count_add == (35 * total_client):
         print('sleep 2hr')
-        stopcount += 1
+
         for i in range(7100, 0, -1):
             timelft = str(datetime.timedelta(seconds=i))
             print("Time Left : " + timelft, end="\r")
@@ -173,6 +178,13 @@ while i < total_user:
             time.sleep(2)
         filter_clients.clear()
         clientlist()
+        updatecount()
+        try:
+            with open(root_path + '/current_count.txt') as f:
+                previous_count = int(f.read())
+                count_add = 0
+        except Exception as e:
+            pass
 
     total_client = filter_clients.__len__()
     print("remain client: " + str(total_client))
