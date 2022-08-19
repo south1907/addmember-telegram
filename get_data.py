@@ -15,6 +15,7 @@ with open('config.json', 'r', encoding='utf-8') as mm:
 group_source_id = config['group_source']
 group_target_id = config['group_target']
 
+
 def get_group(phone, api_id, api_hash):
     folder_session = 'session/'
     client = TelegramClient(folder_session + phone, api_id, api_hash)
@@ -44,7 +45,7 @@ def get_data_group(client, phone):
         try:
             if chat.megagroup is not None and chat.access_hash is not None:
                 groups.append(chat)
-        except:
+        except BaseException:
             continue
 
     results = []
@@ -54,19 +55,19 @@ def get_data_group(client, phone):
                 'group_id': str(group.id),
                 'access_hash': str(group.access_hash),
                 'title': str(group.title),
-                "type" : "group" if group.megagroup else "channel"
+                "type": "group" if group.megagroup else "channel"
             }
             tmp2 = {
                 'group_id': str(group_source_id),
                 'access_hash': str(group.access_hash),
                 'title': str(group.title),
-                "type" : "group" if group.megagroup else "channel"
+                "type": "group" if group.megagroup else "channel"
             }
             tmp3 = {
                 'group_id': str(group_target_id),
                 'access_hash': str(group.access_hash),
                 'title': str(group.title),
-                "type" : "group" if group.megagroup else "channel"
+                "type": "group" if group.megagroup else "channel"
             }
             results.append(tmp)
 
@@ -75,8 +76,6 @@ def get_data_group(client, phone):
             if tmp == tmp3:
                 get_data_user(client, group)
         except Exception as e:
-            print(e)
-            print('error save group')
             print(e)
             print('error save group')
     with open('data/group/' + phone + '.json', 'w', encoding='utf-8') as f:
@@ -93,14 +92,20 @@ def get_data_user(client, group):
     all_participants = []
 
     while while_condition:
-        participants = client(GetParticipantsRequest(channel=group,  offset= offset, filter = my_filter, limit=200, hash=0))
+        participants = client(
+            GetParticipantsRequest(
+                channel=group,
+                offset=offset,
+                filter=my_filter,
+                limit=200,
+                hash=0))
 
         all_participants.extend(participants.users)
         offset += len(participants.users)
 
         print(len(participants.users))
 
-        if len(participants.users) < 1 :
+        if len(participants.users) < 1:
             while_condition = False
 
     results = []
@@ -113,6 +118,12 @@ def get_data_user(client, group):
         # print(user)
         # print(type(user.status))
         try:
+
+            if not isinstance(user.username, type(None)):
+                if str(user.username[-3:]).lower() == "bot":
+                    continue
+                else:
+                    pass
             if isinstance(user.status, UserStatusRecently):
                 date_online_str = 'online'
             else:
@@ -131,7 +142,7 @@ def get_data_user(client, group):
                 "date_online": date_online_str
             }
             results.append(tmp)
-        except:
+        except BaseException:
             print("Error get user")
     with open(path_file, 'w', encoding='utf-8') as f:
         json.dump(results, f, indent=4, ensure_ascii=False)
