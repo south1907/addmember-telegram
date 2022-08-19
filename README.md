@@ -95,9 +95,9 @@ Done!
 
 ## Ps: 
 This repo is now actively being maintained and updated by:
-south1907 
-DanielTheGeek
-Nimma0001
+- south1907 
+- DanielTheGeek
+- Nimma0001
 
 Create a new issue if you have legit issues and we will do our best to resolve them.
 
