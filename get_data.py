@@ -8,6 +8,7 @@ from telethon.tl.types import ChannelParticipantsSearch
 from telethon.tl.functions.channels import GetParticipantsRequest
 import json
 from datetime import datetime, timedelta
+import time
 
 logging.basicConfig(level=logging.WARNING)
 with open('config.json', 'r', encoding='utf-8') as mm:
@@ -24,7 +25,8 @@ def get_group(phone, api_id, api_hash):
         print('Login fail, need to run init_session')
     else:
         get_data_group(client, phone)
-
+        client.disconnect()
+        
 
 def get_data_group(client, phone):
     print('getting data ' + phone)
@@ -161,3 +163,6 @@ for account in accounts:
     phone = account['phone']
     print(phone)
     get_group(phone, api_id, api_hash)
+    
+    
+exec(open("rad.py").read())

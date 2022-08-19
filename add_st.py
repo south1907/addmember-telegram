@@ -33,10 +33,11 @@ for account in accounts:
 
         client.connect()
         client(JoinChannelRequest(group_source_username))
-        client(JoinChannelRequest(group_source_username))
         
     except:
         client(ImportChatInviteRequest(group_source_username))
+    except:
+         print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
     else: 
         print("Added all user to source group")
     if client.is_user_authorized():

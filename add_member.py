@@ -126,7 +126,7 @@ def clientlist():
                 target_group_entity = InputPeerChannel(
                     group_target_id, group_access_hash)
 
-                path_group_user = root_path + '/data/user/' + \
+                path_group_user = root_path + '/data/filteruser/' + \
                     phone + "_" + str(group_source_id) + '.json'
                 if os.path.isfile(path_group_user):
                     # add target_group_entity key value
@@ -264,7 +264,7 @@ extime = str(2 * total_client)
 if extime == str(0):
     print("exiting program wait For Some Seconds")
 else:
-    print("exiting program wait For" + extime + " Some Seconds")
+    print("exiting program wait For " + extime + " Some Seconds")
 
 
 for cli in clients:

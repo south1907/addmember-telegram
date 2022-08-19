@@ -14,20 +14,23 @@ https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
 ![Supper group](images/note_tele.png)
 ![Upgraded Supper group](images/note_tele2.png)
 
-## Guide line
+### Guide line
 
-* Step 1: Install package `telethon` `readchar`
-```
-pip install telethon
-
-pip install readchar
-```
-
-* Step 2: Run python make_config.py
-
-
-```
-{
+<details>
+  <summary>Click me</summary>
+  
+ * Step 1: Install package `telethon` `readchar`
+ ```
+ pip install telethon
+ 
+ pip install readchar
+ ```
+ 
+ * Step 2: Run python make_config.py
+ 
+ 
+ ```
+ {
 	"group_target": 1398120166, --> id target group
 	"group_source": 1490302444, --> id source group
     "group_source_username": "https://t.me/groupname", --> address of source group
@@ -38,60 +41,71 @@ pip install readchar
 			"api_hash": "57c6f3c72c2f21676d53be2eXXXXXX"
 		}
 	]
-}
-```
-`group_target` and `group_source`: ur source group where u will pick members from adn ur target group is where members eill be added,
+ }
+ ```
+ `group_target` and `group_source`: ur source group where u will pick members from adn ur target group is where members eill be added,
 `accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
 
 
 
-> To Edit ur config.json open config.json and add new data in ,{} as shown above dont use make_config.py.  it will overwrite on config.json
+ > To Edit ur config.json open config.json and add new data in ,{} as shown above dont use make_config.py.  it will overwrite on config.json
 
 
-* Step 3: After setting up your `config.json` or running `python make_config.py` file, run `python init_session.py`, enter phone and the code you received
+ * Step 3: After setting up your `config.json` or running `python make_config.py` file, run `python init_session.py`, enter phone and the code you received
 
-![Init session](images/step1.png)
+ ![Init session](images/step1.png)
 
-* Step 4: run `python add_st.py` to get data of group, data user and save file in folder `data`
+ * Step 4: run `python add_st.py` to get data of group, data user and save file in folder `data`
 
-### Note If U cant get Group link.  add all the users to source group then run python get_data.py
+ ### Note :
+ - If U cant get Group link.  add all the users to source group then run python get_data.py
+ - if u get any other error. add all the users to source group then run python get_data.py
 
 
-![Get data](images/step2.png)
-![Data after Get](images/data_step2.png)
+ ![Get data](images/step2.png)
+ ![Data after Get](images/data_step2.png)
 
-```
-{
+ ```
+ {
     "user_id": "847587728",
     "access_hash": "2393668282771176567",
     "username": "None"
-}
-```
-One group have one list user (list username), but each account Telegram have list User (difference user_id, access_hash). Use `user_id` and `access_hash` to add member, so you need get list user of each account Telegram.
-Note: Use username have also use to add member, but something use not have username
+ }
+ ```
+ One group have one list user (list username), but each account Telegram have list User (difference user_id, access_hash). Use `user_id` and `access_hash` to add member, so you need get list user of each account Telegram.
+ Note: Use username have also use to add member, but something use not have username
 
-After run get data, check again file in data/group and edit file config to change group_target, group_source, which you want to add.
+ After run get data, check again file in data/group and edit file config to change group_target, group_source, which you want to add.
 
-* Step 5: run `python add_member.py` to add member from `group_source` to `group_target`
-Logic: 
-	* after adding 1 member, sleep 2 minutes
+ * Step 5: run `python add_member.py` to add member from `group_source` to `group_target`
+ Logic: 
+	* after adding 1 member, sleep 1 minutes
 	* after each account adds 35 members --> sleep 15 minutes
 	* Remove account when there is a Flood Wait Error
 	* Break if there are no more accounts
 
-Note: If your account gets blocked, go to https://web.telegram.org/#/im?p=@SpamBot and chat /start to see the time the ban would be lifted
+ Note: If your account gets blocked, go to https://web.telegram.org/#/im?p=@SpamBot and chat /start to see the time the ban would be lifted
 
-![Get data](images/block.png)
+ ![Get data](images/block.png)
 
-Done!
+ Done!
 
-> You can Stop The script By crtl+z or crtl+c. type y
+ > You can Stop The script By crtl+z or crtl+c. type y
 
+</details>
+
+### Short Guide
+'''
 1. python make_config.py
 2. pip install -r requirements.txt
 3. run `python add_st.py`
 4. run `python add_member.py`
 5. use Crtl+z or Crtl+c to stop the script
+'''
+## member info:
+
+- member are filter out from ur group so u wont have already invited member from other source group.
+- it happen automatically when u use add_st.py or get_data.py
 
 ## Ps: 
 This repo is now actively being maintained and updated by:
