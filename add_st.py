@@ -2,6 +2,7 @@ import sys
 import os
 import json
 from telethon.tl.functions.channels import JoinChannelRequest
+from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon import sync, TelegramClient, events
 
 class bcolors:
@@ -27,13 +28,17 @@ for account in accounts:
     api_id = account['api_id']
     api_hash = account['api_hash']
     phone = account['phone']
+    try:
+        client = TelegramClient(folder_session + phone, api_id, api_hash)
 
-    client = TelegramClient(folder_session + phone, api_id, api_hash)
-
-    client.connect()
-    client(JoinChannelRequest(group_source_username))
-    client(JoinChannelRequest(group_source_username))
-    
+        client.connect()
+        client(JoinChannelRequest(group_source_username))
+        client(JoinChannelRequest(group_source_username))
+        
+    except:
+        client(ImportChatInviteRequest(group_source_username))
+    else: 
+        print("Added all user to source group")
     if client.is_user_authorized():
         print(bcolors.OKGREEN + phone + ' login success' + bcolors.ENDC)
         clients.append({
