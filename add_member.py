@@ -217,8 +217,8 @@ while i < total_user:
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
         print('Added member ' + user['username'] + ' successfully ;-)')
         count_add += 1
-        print('sleep: ' + str(120 / total_client))
-        time.sleep(120 / total_client)
+        print('sleep: ' + str(90 / total_client))
+        time.sleep(90 / total_client)
         updatecount()
     except PeerFloodError as e:
         count_add += 1
