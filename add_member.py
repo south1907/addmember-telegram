@@ -128,6 +128,8 @@ def clientlist():
 
                 path_group_user = root_path + '/data/filteruser/' + \
                     phone + "_" + str(group_source_id) + '.json'
+                path_group_user2 = root_path + '/data/user/' + \
+                    phone + "_" + str(group_source_id) + '.json'
                 if os.path.isfile(path_group_user):
                     # add target_group_entity key value
                     my_client['target_group_entity'] = target_group_entity
@@ -135,7 +137,14 @@ def clientlist():
                         my_client['users'] = json.loads(f.read())
 
                     filter_clients.append(my_client)
-                else:
+                elif os.path.isfile(path_group_user2):
+                    # add target_group_entity key value
+                    my_client['target_group_entity'] = target_group_entity
+                    with open(path_group_user, encoding='utf-8') as f:
+                        my_client['users'] = json.loads(f.read())
+                        
+                    filter_clients.append(my_client)
+                else: 
                     print('This account with phone ' +
                           str(phone) + ' is not in source group')
             else:
