@@ -30,16 +30,16 @@ for account in accounts:
     phone = account['phone']
     try:
         client = TelegramClient(folder_session + phone, api_id, api_hash)
-
         client.connect()
         client(JoinChannelRequest(group_source_username))
-        
+        print(phone + " added source group")      
     except:
-        client(ImportChatInviteRequest(group_source_username))
-    except:
+        try:
+            client(ImportChatInviteRequest(group_source_username))
+        except:
          print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
-    else: 
-        print("Added all user to source group")
+
+        
     if client.is_user_authorized():
         print(bcolors.OKGREEN + phone + ' login success' + bcolors.ENDC)
         clients.append({
