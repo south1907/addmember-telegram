@@ -55,9 +55,9 @@ print("Total account: " + str(len(accounts)))
 folder_session = 'session/'
 
 # group target
-group_target_id = config['group_target']
+group_target_id = int(config['group_target'])
 # group source
-group_source_id = config['group_source']
+group_source_id = int(config['group_source'])
 # date_online_from
 from_date_active = '19700101'
 if 'from_date_active' in config:
