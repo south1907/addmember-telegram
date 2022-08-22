@@ -22,6 +22,8 @@ group_target_id = config['group_target']
 # group source
 group_source_id = config['group_source']
 group_source_username = config['group_source_username']
+group_target_username = config['group_target_username']
+
 
 clients = []
 for account in accounts:
@@ -32,7 +34,9 @@ for account in accounts:
         client = TelegramClient(folder_session + phone, api_id, api_hash)
         client.connect()
         client(JoinChannelRequest(group_source_username))
-        print(phone + " added source group")      
+        client(JoinChannelRequest(group_target_username))
+        print(phone + " added source and target group")
+        
     except:
         try:
             client(ImportChatInviteRequest(group_source_username))
@@ -40,6 +44,7 @@ for account in accounts:
          print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
 
         
+
     if client.is_user_authorized():
         print(bcolors.OKGREEN + phone + ' login success' + bcolors.ENDC)
         clients.append({
