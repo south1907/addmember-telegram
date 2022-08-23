@@ -64,6 +64,9 @@ def filterus():
             #disconect
             client.disconnect()
             time.sleep(2)
+        else:
+           print("couldn't filter all account try later or use python add_member.py")
+
 
 
 filterus()
