@@ -140,7 +140,7 @@ def clientlist():
                 elif os.path.isfile(path_group_user2):
                     # add target_group_entity key value
                     my_client['target_group_entity'] = target_group_entity
-                    with open(path_group_user, encoding='utf-8') as f:
+                    with open(path_group_user2, encoding='utf-8') as f:
                         my_client['users'] = json.loads(f.read())
                         
                     filter_clients.append(my_client)
