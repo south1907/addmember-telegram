@@ -55,9 +55,9 @@ print("Total account: " + str(len(accounts)))
 folder_session = 'session/'
 
 # group target
-group_target_id = config['group_target']
+group_target_id = int(config['group_target'])
 # group source
-group_source_id = config['group_source']
+group_source_id = int(config['group_source'])
 # date_online_from
 from_date_active = '19700101'
 if 'from_date_active' in config:
@@ -126,7 +126,9 @@ def clientlist():
                 target_group_entity = InputPeerChannel(
                     group_target_id, group_access_hash)
 
-                path_group_user = root_path + '/data/user/' + \
+                path_group_user = root_path + '/data/filteruser/' + \
+                    phone + "_" + str(group_source_id) + '.json'
+                path_group_user2 = root_path + '/data/user/' + \
                     phone + "_" + str(group_source_id) + '.json'
                 if os.path.isfile(path_group_user):
                     # add target_group_entity key value
@@ -135,7 +137,14 @@ def clientlist():
                         my_client['users'] = json.loads(f.read())
 
                     filter_clients.append(my_client)
-                else:
+                elif os.path.isfile(path_group_user2):
+                    # add target_group_entity key value
+                    my_client['target_group_entity'] = target_group_entity
+                    with open(path_group_user2, encoding='utf-8') as f:
+                        my_client['users'] = json.loads(f.read())
+                        
+                    filter_clients.append(my_client)
+                else: 
                     print('This account with phone ' +
                           str(phone) + ' is not in source group')
             else:
@@ -217,8 +226,8 @@ while i < total_user:
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
         print('Added member ' + user['username'] + ' successfully ;-)')
         count_add += 1
-        print('sleep: ' + str(120 / total_client))
-        time.sleep(120 / total_client)
+        print('sleep: ' + str(90 / total_client))
+        time.sleep(90 / total_client)
         updatecount()
     except PeerFloodError as e:
         count_add += 1
@@ -264,7 +273,7 @@ extime = str(2 * total_client)
 if extime == str(0):
     print("exiting program wait For Some Seconds")
 else:
-    print("exiting program wait For" + extime + " Some Seconds")
+    print("exiting program wait For " + extime + " Some Seconds")
 
 
 for cli in clients:
