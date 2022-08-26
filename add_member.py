@@ -18,6 +18,7 @@ from pathlib import Path
 #Path = os.path.abspath(os.curdir)
 
 previous_count = 0
+added_count = 0
 count_add = 0
 
 
@@ -174,7 +175,7 @@ while i < total_user:
         continue
 
     # count_add if added 35 user
-    if count_add == (35 * total_client):
+    if added_count == (35 * total_client):
         print('sleep 2hr')
 
         for i in range(7100, 0, -1):
@@ -227,6 +228,7 @@ while i < total_user:
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
         print('Added member ' + user['username'] + ' successfully ;-)')
         count_add += 1
+        added_count += 1
         print('sleep: ' + str(90 / total_client))
         time.sleep(90 / total_client)
         updatecount()
@@ -281,5 +283,6 @@ for cli in clients:
     cli['client'].disconnect()
     time.sleep(2)
 end_time = datetime.datetime.now()
-print("total: " + str(count_add))
+print("skip: " + str(count_add - added_count))
+print("added: " + str(added_count))
 print("total time: " + str(end_time - start_time))
