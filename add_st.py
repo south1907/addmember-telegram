@@ -18,10 +18,10 @@ print("Total account: " + str(len(accounts)))
 folder_session = 'session/'
 
 # group target
-group_target_id = config['group_target']
+group_target_id = int(config['group_target'])
 # group source
-group_source_id = config['group_source']
-group_source_username = config['group_source_username']
+group_source_id = int(config['group_source'])
+group_source_username = str(config['group_source_username'])
 group_target_username = config['group_target_username']
 
 
@@ -39,7 +39,8 @@ for account in accounts:
         
     except:
         try:
-            client(ImportChatInviteRequest(group_source_username))
+            newg = group_source_username.split('+')
+            client(ImportChatInviteRequest(newg[1]))
         except:
          print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
 
@@ -56,13 +57,3 @@ for account in accounts:
         print(bcolors.FAIL + phone + ' login fail' + bcolors.ENDC)
      
 exec(open("get_data.py").read())
-with open(root_path + '/current_count.txt') as f:
-    count = f.read()
-    with open(root_path + '/current_count.txt.bakup', 'w') as g:
-        g.write(str(count))
-with open(root_path + '/current_count.txt', 'w') as h:
-    i = 0
-    h.write(str(i))
-
-    
-        
