@@ -12,25 +12,31 @@ import time
 import traceback
 import datetime
 import os
+import requests
+from stem import Signal
+from stem.control import Controller
 import json
-from pathlib import Path
 
-#Path = os.path.abspath(os.curdir)
+root_path = os.path.abspath(os.curdir)
 
 previous_count = 0
-added_count = 0
 count_add = 0
+added_count = 0
 
+def renew_tor_ip():
+    with Controller.from_port(port = 9051) as controller:
+        controller.authenticate(password="MyStr0n9P#D")
+        controller.signal(Signal.NEWNYM)
 
 def updatecount():
     tooot = previous_count + count_add
-    with open(Path('current_count.txt'), 'w') as g:
+    with open(root_path + '/current_count.txt', 'w') as g:
         g.write(str(tooot))
         g.close()
 
 
 try:
-    with open(Path('current_count.txt')) as f:
+    with open(root_path + '/current_count.txt') as f:
         previous_count = int(f.read())
 except Exception as e:
     pass
@@ -43,7 +49,7 @@ def get_group_by_id(groups, group_id):
     return None
 
 
-print(str(Path.cwd()))
+print(root_path)
 
 
 start_time = datetime.datetime.now()
@@ -59,7 +65,7 @@ folder_session = 'session/'
 # group target
 group_target_id = int(config['group_target'])
 # group source
-group_source_id = int(config['group_source'])
+group_source_id = config['group_source']
 # date_online_from
 from_date_active = '19700101'
 if 'from_date_active' in config:
@@ -115,8 +121,8 @@ else:
 def clientlist():
     for my_client in clients:
         phone = my_client['phone']
-        path_group = Path('data/group/' + phone + '.json')
-        if path_group.exists():
+        path_group = root_path + '/data/group/' + phone + '.json'
+        if os.path.isfile(path_group):
 
             with open(path_group, 'r', encoding='utf-8') as f:
                 groups = json.loads(f.read())
@@ -125,24 +131,15 @@ def clientlist():
 
             if current_target_group:
                 group_access_hash = int(current_target_group['access_hash'])
-                target_group_entity = InputPeerChannel(
-                    group_target_id, group_access_hash)
+                target_group_entity = InputPeerChannel(group_target_id, group_access_hash)
 
-                path_group_user = Path('data/filteruser/' + \
-                    phone + "_" + str(group_source_id) + '.json')
-                path_group_user2 = Path('/data/user/' + \
-                    phone + "_" + str(group_source_id) + '.json')
-                if path_group_user.exists():
+                
+                path_group_user = root_path + '/data/filteruser/' + \
+                    phone + "_" + str(group_source_id) + '.json'
+                if os.path.isfile(path_group_user):
                     # add target_group_entity key value
                     my_client['target_group_entity'] = target_group_entity
                     with open(path_group_user, encoding='utf-8') as f:
-                        my_client['users'] = json.loads(f.read())
-
-                    filter_clients.append(my_client)
-                elif path_group_user2.exists():
-                    # add target_group_entity key value
-                    my_client['target_group_entity'] = target_group_entity
-                    with open(path_group_user2, encoding='utf-8') as f:
                         my_client['users'] = json.loads(f.read())
                         
                     filter_clients.append(my_client)
@@ -175,7 +172,7 @@ while i < total_user:
         continue
 
     # count_add if added 35 user
-    if added_count == (35 * total_client):
+    if added_count == (50 * total_client):
         print('sleep 2hr')
 
         for i in range(7100, 0, -1):
@@ -191,7 +188,7 @@ while i < total_user:
         clientlist()
         updatecount()
         try:
-            with open(Path('current_count.txt')) as f:
+            with open(root_path + '/current_count.txt') as f:
                 previous_count = int(f.read())
                 count_add = 0
         except Exception as e:
@@ -200,7 +197,7 @@ while i < total_user:
     total_client = filter_clients.__len__()
     print("remain client: " + str(total_client))
     if total_client == 0:
-        with open(Path('current_count.txt'), 'w') as g:
+        with open(root_path + '/current_count.txt', 'w') as g:
             g.write(str(i))
             g.close()
 
@@ -229,9 +226,10 @@ while i < total_user:
         print('Added member ' + user['username'] + ' successfully ;-)')
         count_add += 1
         added_count += 1
-        print('sleep: ' + str(90 / total_client))
-        time.sleep(90 / total_client)
         updatecount()
+        print('sleep: ' + str(90 / total_client))
+        time.sleep(120 / total_client)
+        
     except PeerFloodError as e:
         count_add += 1
         updatecount()
@@ -268,7 +266,7 @@ while i < total_user:
         print("Error other")
     i += 1
 
-with open(Path('current_count.txt'), 'w') as g:
+with open(root_path + '/current_count.txt', 'w') as g:
     g.write(str(i))
     g.close()
 print("disconnect")
