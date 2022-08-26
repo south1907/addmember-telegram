@@ -13,8 +13,9 @@ import traceback
 import datetime
 import os
 import json
+from pathlib import Path
 
-root_path = os.path.abspath(os.curdir)
+#Path = os.path.abspath(os.curdir)
 
 previous_count = 0
 count_add = 0
@@ -22,13 +23,13 @@ count_add = 0
 
 def updatecount():
     tooot = previous_count + count_add
-    with open(root_path + '/current_count.txt', 'w') as g:
+    with open(Path('current_count.txt'), 'w') as g:
         g.write(str(tooot))
         g.close()
 
 
 try:
-    with open(root_path + '/current_count.txt') as f:
+    with open(Path('current_count.txt')) as f:
         previous_count = int(f.read())
 except Exception as e:
     pass
@@ -41,7 +42,7 @@ def get_group_by_id(groups, group_id):
     return None
 
 
-print(root_path)
+print(str(Path.cwd()))
 
 
 start_time = datetime.datetime.now()
@@ -113,8 +114,8 @@ else:
 def clientlist():
     for my_client in clients:
         phone = my_client['phone']
-        path_group = root_path + '/data/group/' + phone + '.json'
-        if os.path.isfile(path_group):
+        path_group = Path('data/group/' + phone + '.json')
+        if path_group.exists():
 
             with open(path_group, 'r', encoding='utf-8') as f:
                 groups = json.loads(f.read())
@@ -126,18 +127,18 @@ def clientlist():
                 target_group_entity = InputPeerChannel(
                     group_target_id, group_access_hash)
 
-                path_group_user = root_path + '/data/filteruser/' + \
-                    phone + "_" + str(group_source_id) + '.json'
-                path_group_user2 = root_path + '/data/user/' + \
-                    phone + "_" + str(group_source_id) + '.json'
-                if os.path.isfile(path_group_user):
+                path_group_user = Path('data/filteruser/' + \
+                    phone + "_" + str(group_source_id) + '.json')
+                path_group_user2 = Path('/data/user/' + \
+                    phone + "_" + str(group_source_id) + '.json')
+                if path_group_user.exists():
                     # add target_group_entity key value
                     my_client['target_group_entity'] = target_group_entity
                     with open(path_group_user, encoding='utf-8') as f:
                         my_client['users'] = json.loads(f.read())
 
                     filter_clients.append(my_client)
-                elif os.path.isfile(path_group_user2):
+                elif path_group_user2.exists():
                     # add target_group_entity key value
                     my_client['target_group_entity'] = target_group_entity
                     with open(path_group_user2, encoding='utf-8') as f:
@@ -189,7 +190,7 @@ while i < total_user:
         clientlist()
         updatecount()
         try:
-            with open(root_path + '/current_count.txt') as f:
+            with open(Path('current_count.txt')) as f:
                 previous_count = int(f.read())
                 count_add = 0
         except Exception as e:
@@ -198,7 +199,7 @@ while i < total_user:
     total_client = filter_clients.__len__()
     print("remain client: " + str(total_client))
     if total_client == 0:
-        with open(root_path + '/current_count.txt', 'w') as g:
+        with open(Path('current_count.txt'), 'w') as g:
             g.write(str(i))
             g.close()
 
@@ -265,7 +266,7 @@ while i < total_user:
         print("Error other")
     i += 1
 
-with open(root_path + '/current_count.txt', 'w') as g:
+with open(Path('current_count.txt'), 'w') as g:
     g.write(str(i))
     g.close()
 print("disconnect")

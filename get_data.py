@@ -13,8 +13,8 @@ import time
 logging.basicConfig(level=logging.WARNING)
 with open('config.json', 'r', encoding='utf-8') as mm:
     config = json.loads(mm.read())
-group_source_id = config['group_source']
-group_target_id = config['group_target']
+group_source_id = int(config['group_source'])
+group_target_id = int(config['group_target'])
 
 
 def get_group(phone, api_id, api_hash):

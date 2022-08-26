@@ -27,7 +27,7 @@ for account in accounts:
             'phone': phone,
             'client': client
         })
-        time.sleep(1)
+        time.sleep(2)
     else:
         print(phone + ' login fail')
 
@@ -44,6 +44,7 @@ root_path = os.path.abspath(os.curdir)
 def filterus():
     for my_client in clients:
         phone = my_client['phone']
+
         path_group = root_path + '/data/group/' + phone + '.json'
         path_group2 = root_path + '/data/filteruser/' + \
             phone + "_" + str(group_source_id) + '.json'
@@ -52,21 +53,26 @@ def filterus():
                 phone + "_" + str(group_source_id) + '.json'
             json1 = root_path + '/data/user/' + \
                 phone + "_" + str(group_target_id) + '.json'
-            with open(json1) as f:
-                json11 = json.loads(f.read())
-            with open(json2) as b:
-                json22 = json.loads(b.read())
+            try: 
+                with open(json1) as f:
+                    json11 = json.loads(f.read())
+                with open(json2) as b:
+                    json22 = json.loads(b.read())
 
-            newjson = [user for user in json22 if not any(
-                user["user_id"] == other["user_id"] for other in json11)]
-            with open(path_group2, "w") as f:
-                json.dump(newjson, f, ensure_ascii=False, indent=4)
+                newjson = [user for user in json22 if not any(
+                    user["user_id"] == other["user_id"] for other in json11)]
+                with open(path_group2, "w") as f:
+                    json.dump(newjson, f, ensure_ascii=False, indent=4)
+            #disconect
+                client.disconnect()
+                time.sleep(2)
+            except:
+                print("U might be banned from Source or Target with this number " + phone)
+                continue
+        else:
             #disconect
             client.disconnect()
             time.sleep(2)
-        else:
-           print("couldn't filter all account try later or use python add_member.py")
-
 
 
 filterus()
