@@ -16,21 +16,9 @@ for account in accounts:
     api_id = account['api_id']
     api_hash = account['api_hash']
     phone = account['phone']
-
-    client = TelegramClient(folder_session + phone, api_id, api_hash)
-
-    client.connect()
-
-    if client.is_user_authorized():
-        print(phone + ' login success')
-        clients.append({
-            'phone': phone,
-            'client': client
+    clients.append({
+         'phone': phone
         })
-        time.sleep(2)
-    else:
-        print(phone + ' login fail')
-
 
 # group target
 group_target_id = config['group_target']
@@ -64,14 +52,12 @@ def filterus():
                 with open(path_group2, "w") as f:
                     json.dump(newjson, f, ensure_ascii=False, indent=4)
             #disconect
-                client.disconnect()
-                time.sleep(2)
+
             except:
                 print("U might be banned from Source or Target with this number " + phone)
                 continue
         else:
             #disconect
-            client.disconnect()
             time.sleep(2)
 
 
