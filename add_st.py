@@ -34,13 +34,13 @@ for account in accounts:
         client = TelegramClient(folder_session + phone, api_id, api_hash)
         client.connect()
         client(JoinChannelRequest(group_source_username))
-        client(JoinChannelRequest(group_target_username))
+        newg = group_target_username.split('+')
+        client(ImportChatInviteRequest(newg[1]))
         print(phone + " added source and target group")
         
     except:
         try:
-            newg = group_source_username.split('+')
-            client(ImportChatInviteRequest(newg[1]))
+           client(JoinChannelRequest(group_target_username))
         except:
          print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
 
