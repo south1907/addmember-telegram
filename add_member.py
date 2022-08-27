@@ -14,7 +14,6 @@ import datetime
 import os
 import requests
 from stem import Signal
-from stem.control import Controller
 import json
 
 root_path = os.path.abspath(os.curdir)
@@ -23,10 +22,6 @@ previous_count = 0
 count_add = 0
 added_count = 0
 
-def renew_tor_ip():
-    with Controller.from_port(port = 9051) as controller:
-        controller.authenticate(password="MyStr0n9P#D")
-        controller.signal(Signal.NEWNYM)
 
 def updatecount():
     tooot = previous_count + count_add
