@@ -1,6 +1,5 @@
 import os
 import json
-from telethon import TelegramClient
 import time
 
 with open('config.json', 'r', encoding='utf-8') as f:
@@ -51,6 +50,8 @@ def filterus():
                     user["user_id"] == other["user_id"] for other in json11)]
                 with open(path_group2, "w") as f:
                     json.dump(newjson, f, ensure_ascii=False, indent=4)
+                    
+                print("Filter process done for :" + phone)
             #disconect
 
             except:

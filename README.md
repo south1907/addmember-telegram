@@ -89,6 +89,8 @@ https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
  ![Get data](images/block.png)
 
  Done!
+ 
+ ###Note : After Changing Source delte Current_count.txt
 
  > You can Stop The script By crtl+z or crtl+c. type y
 

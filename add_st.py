@@ -5,10 +5,12 @@ from telethon.tl.functions.channels import JoinChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon import sync, TelegramClient, events
 
+
 class bcolors:
     OKGREEN = '\033[92m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
+
 
 with open('config.json', 'r', encoding='utf-8') as f:
     config = json.loads(f.read())
@@ -37,14 +39,12 @@ for account in accounts:
         newg = group_target_username.split('+')
         client(ImportChatInviteRequest(newg[1]))
         print(phone + " added source and target group")
-        
-    except:
-        try:
-           client(JoinChannelRequest(group_target_username))
-        except:
-         print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
 
-        
+    except BaseException:
+        try:
+            client(JoinChannelRequest(group_target_username))
+        except BaseException:
+            print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
 
     if client.is_user_authorized():
         print(bcolors.OKGREEN + phone + ' login success' + bcolors.ENDC)
@@ -55,5 +55,5 @@ for account in accounts:
         client.disconnect()
     else:
         print(bcolors.FAIL + phone + ' login fail' + bcolors.ENDC)
-     
+
 exec(open("get_data.py").read())
