@@ -126,9 +126,9 @@ def clientlist():
 
             if current_target_group:
                 group_access_hash = int(current_target_group['access_hash'])
-                target_group_entity = InputPeerChannel(group_target_id, group_access_hash)
+                target_group_entity = InputPeerChannel(
+                    group_target_id, group_access_hash)
 
-                
                 path_group_user = root_path + '/data/filteruser/' + \
                     phone + "_" + str(group_source_id) + '.json'
                 if os.path.isfile(path_group_user):
@@ -136,9 +136,9 @@ def clientlist():
                     my_client['target_group_entity'] = target_group_entity
                     with open(path_group_user, encoding='utf-8') as f:
                         my_client['users'] = json.loads(f.read())
-                        
+
                     filter_clients.append(my_client)
-                else: 
+                else:
                     print('This account with phone ' +
                           str(phone) + ' is not in source group')
             else:
@@ -224,7 +224,7 @@ while i < total_user:
         print('sleep: ' + str(90 / total_client))
         time.sleep(120 / total_client)
         added_count += 1
-        
+
     except PeerFloodError as e:
         count_add += 1
         updatecount()
@@ -253,8 +253,8 @@ while i < total_user:
             cli['client'].disconnect()
             time.sleep(1)
         end_time = datetime.datetime.now()
-        print("total: " + str(count_add))
-        print("total time: " + str(end_time - start_time))
+        print("skip: " + str(count_add - added_count))
+        print("added: " + str(added_count))
         sys.exit()
     except BaseException:
         count_add += 1
