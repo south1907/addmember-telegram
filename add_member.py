@@ -24,8 +24,8 @@ added_count = 0
 try:
     with open(root_path + '/current_count.txt') as f:
         previous_count = int(f.read())
-        fixprecount = int(f.read())
-except Exception as e:
+        fixprecount = previous_count
+except:
     previous_count = 0
     fixprecount = 0
 
@@ -223,9 +223,13 @@ while i < total_user:
         print('Added member ' + user['username'] + ' successfully ;-)')
         count_add += 1
         added_count += 1
-        updatecount()
         print('sleep: ' + str(90 / total_client))
         time.sleep(120 / total_client)
+        if True:
+            try:
+                updatecount()
+            except:
+                continue
 
     except PeerFloodError as e:
         count_add += 1
