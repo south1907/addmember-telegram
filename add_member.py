@@ -17,7 +17,7 @@ from stem import Signal
 import json
 
 root_path = os.path.abspath(os.curdir)
-
+old_userid = 0
 count_add = 0
 added_count = 0
 
@@ -216,21 +216,26 @@ while i < total_user:
     target_group_entity = current_client['target_group_entity']
 
     try:
-        print('Adding member: ' + user['username'])
-        user_to_add = InputPeerUser(
-            int(user['user_id']), int(user['access_hash']))
-        client(InviteToChannelRequest(target_group_entity, [user_to_add]))
-        print('Added member ' + user['username'] + ' successfully ;-)')
-        count_add += 1
-        added_count += 1
-        print('sleep: ' + str(90 / total_client))
-        time.sleep(120 / total_client)
-        if True:
-            try:
-                updatecount()
-            except:
-                continue
-
+        if old_userid != int(user['user_id']):
+            print('Adding member: ' + user['username'])
+            user_to_add = InputPeerUser(
+                int(user['user_id']), int(user['access_hash']))
+            client(InviteToChannelRequest(target_group_entity, [user_to_add]))
+            print('Added member ' + user['username'] + ' successfully ;-)')
+            count_add += 1
+            added_count += 1
+            print('sleep: ' + str(90 / total_client))
+            time.sleep(120 / total_client)
+            old_userid = int(user['user_id'])
+            if True:
+                try:
+                    updatecount()
+                except:
+                    
+                    continue
+        else:
+            count_add += 1
+            continue
     except PeerFloodError as e:
         count_add += 1
         added_count -= 1
