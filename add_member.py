@@ -169,7 +169,7 @@ while i < total_user:
         continue
 
     # count_add if added 35 user
-    if added_count == (50 * total_client):
+    if added_count == (35 * total_client):
         print('sleep 2hr')
 
         for i in range(7100, 0, -1):
