@@ -18,23 +18,25 @@ import json
 
 root_path = os.path.abspath(os.curdir)
 
-previous_count = 0
 count_add = 0
 added_count = 0
-
-
-def updatecount():
-    tooot = previous_count + count_add
-    with open(root_path + '/current_count.txt', 'w') as g:
-        g.write(str(tooot))
-        g.close()
-
 
 try:
     with open(root_path + '/current_count.txt') as f:
         previous_count = int(f.read())
+        fixprecount = int(f.read())
 except Exception as e:
-    pass
+    previous_count = 0
+    fixprecount = 0
+
+
+
+def updatecount():
+    tooot = fixprecount + count_add
+    with open(root_path + '/current_count.txt', 'w') as g:
+        g.write(str(tooot))
+        g.close()
+
 
 
 def get_group_by_id(groups, group_id):
@@ -220,13 +222,14 @@ while i < total_user:
         client(InviteToChannelRequest(target_group_entity, [user_to_add]))
         print('Added member ' + user['username'] + ' successfully ;-)')
         count_add += 1
+        added_count += 1
         updatecount()
         print('sleep: ' + str(90 / total_client))
         time.sleep(120 / total_client)
-        added_count += 1
 
     except PeerFloodError as e:
         count_add += 1
+        added_count -= 1
         updatecount()
         print("Error Fooling cmnr")
         traceback.print_exc()
