@@ -220,7 +220,7 @@ while i < total_user:
             print("Skipped")
             count_add += 1
         else:
-            print('Adding member: ' + user['username'])
+            print('Adding member With User id: ' + str(user['user_id']))
             user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
             client(InviteToChannelRequest(target_group_entity, [user_to_add]))
             print('Added member ' + user['username'] + ' successfully ;-)')
