@@ -225,11 +225,11 @@ while i < total_user:
             client(InviteToChannelRequest(target_group_entity, [user_to_add]))
             print('Added member ' + user['username'] + ' successfully ;-)')
             count_add += 1
-            added_count += 1
-            print('sleep: ' + str(90 / total_client))
+            print('sleep: ' + str(120 / total_client))
             time.sleep(120 / total_client)
             old_userid = int(user['user_id'])
             updatecount()
+            added_count += 1
             
     except PeerFloodError as e:
         count_add += 1
@@ -244,10 +244,8 @@ while i < total_user:
         continue
     except UserPrivacyRestrictedError:
         count_add += 1
-        added_count -= 1
         print("Error Privacy")
     except FloodWaitError as e:
-        count_add += 1
         updatecount()
         print("Error Flood wait")
         traceback.print_exc()
