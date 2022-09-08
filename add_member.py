@@ -12,7 +12,6 @@ import time
 import traceback
 import datetime
 import os
-import requests
 from stem import Signal
 import json
 
@@ -220,19 +219,27 @@ while i < total_user:
             print("Skipped")
             count_add += 1
         else:
+            count_add += 1
+            added_count += 1
+            updatecount()
             print('Adding member With User id: ' + str(user['user_id']))
             user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
+            
             client(InviteToChannelRequest(target_group_entity, [user_to_add]))
+            
+            
             print('Added member ' + user['username'] + ' successfully ;-)')
-            count_add += 1
+            
             print('sleep: ' + str(120 / total_client))
             time.sleep(120 / total_client)
             old_userid = int(user['user_id'])
-            updatecount()
-            added_count += 1
+            
+            
+            
             
     except PeerFloodError as e:
-        count_add += 1
+        count_add -= 1
+        added_count -= 1
         updatecount()
         print("Error Fooling cmnr")
         traceback.print_exc()
@@ -243,27 +250,37 @@ while i < total_user:
         # not increate i
         continue
     except UserPrivacyRestrictedError:
-        count_add += 1
+        added_count -= 1
+        updatecount()
         print("Error Privacy")
     except FloodWaitError as e:
-        updatecount()
         print("Error Flood wait")
+        added_count -= 1
+        updatecount()
         traceback.print_exc()
         print("remove client: " + current_client['phone'])
         client.disconnect()
         filter_clients.remove(current_client)
         continue
     except (GeneratorExit, SystemExit, KeyboardInterrupt) as e:
-        for cli in clients:
-            cli['client'].disconnect()
-            time.sleep(1)
-        end_time = datetime.datetime.now()
-        print("skip: " + str(count_add - added_count))
-        print("added: " + str(added_count))
-        sys.exit()
+        try:
+            for cli in clients:
+                cli['client'].disconnect()
+                time.sleep(1)
+            end_time = datetime.datetime.now()
+            print("skip: " + str(count_add - added_count))
+            print("added: " + str(added_count))
+            updatecount()
+            sys.exit()
+        except:
+            print("skip: " + str(count_add - added_count))
+            print("added: " + str(added_count))
+            updatecount()
+            sys.exit()
     except BaseException:
-        count_add += 1
         print("Error other")
+        added_count -= 1
+        updatecount()
     i += 1
 
 with open(root_path + '/current_count.txt', 'w') as g:
