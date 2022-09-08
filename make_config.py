@@ -18,8 +18,8 @@ def main():
             config = json.load(file)
     else:
         config = {
-            "group_source": input("group_source: "),
-            "group_target": input("group_target: "),
+            "group_source": input("group_source_id: "),
+            "group_target": input("group_target_,id: "),
             "group_source_username": input("group_source_username: "),
             "group_target_username": input("group_target_username: "),
             "from_date_active": "20201114",
