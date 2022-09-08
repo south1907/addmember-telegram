@@ -12,7 +12,6 @@ import time
 import traceback
 import datetime
 import os
-from stem import Signal
 import json
 
 root_path = os.path.abspath(os.curdir)
