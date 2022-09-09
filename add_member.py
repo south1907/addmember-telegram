@@ -130,10 +130,10 @@ def clientlist():
                     group_target_id, group_access_hash)
 
                 path_group_user = (
-                    ((f'{root_path}/data/filteruser/' + phone) + "_")
+                    f'{root_path}/data/filteruser/{phone}_'
                     + str(group_source_id)
-                    + '.json'
-                )
+                ) + '.json'
+
 
                 if os.path.isfile(path_group_user):
                     # add target_group_entity key value
