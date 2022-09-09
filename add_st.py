@@ -16,7 +16,7 @@ with open('config.json', 'r', encoding='utf-8') as f:
     config = json.loads(f.read())
 root_path = os.path.dirname(os.path.abspath(__file__))
 accounts = config['accounts']
-print("Total account: " + str(len(accounts)))
+print(f"Total account: {len(accounts)}")
 folder_session = 'session/'
 
 # group target
@@ -38,13 +38,13 @@ for account in accounts:
         client(JoinChannelRequest(group_source_username))
         newg = group_target_username.split('+')
         client(ImportChatInviteRequest(newg[1]))
-        print(phone + " added source and target group")
+        print(f"{phone} added source and target group")
 
     except BaseException:
         try:
             client(JoinChannelRequest(group_target_username))
         except BaseException:
-            print(f"Add All Of Ur Account to Source Group And Run `python get_data.py` ")
+            print("Add All Of Ur Account to Source Group And Run `python get_data.py` ")
 
     if client.is_user_authorized():
         print(bcolors.OKGREEN + phone + ' login success' + bcolors.ENDC)
