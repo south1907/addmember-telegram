@@ -129,3 +129,5 @@ Wiki: [Link Wiki](https://github.com/south1907/addmember-telegram/wiki/1.-Welcom
 Alpha-Branch: [Link For Branch](https://github.com/nimma0001/addmember-telegram)
 
 Telegram Group: [Link group](https://t.me/amtcommunity)
+
+Telegram Group of Vietnamese: [Link group](https://t.me/atmcommunityvn)
