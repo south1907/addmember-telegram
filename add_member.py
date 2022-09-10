@@ -17,7 +17,7 @@ import json
 root_path = os.path.abspath(os.curdir)
 old_userid = 0
 count_add = 0
-added_count = 0
+##added_count = 0
 
 try:
     with open(f'{root_path}/current_count.txt') as f:
@@ -130,10 +130,10 @@ def clientlist():
                     group_target_id, group_access_hash)
 
                 path_group_user = (
-                    f'{root_path}/data/filteruser/{phone}_'
+                    ((f'{root_path}/data/filteruser/' + phone) + "_")
                     + str(group_source_id)
-                ) + '.json'
-
+                    + '.json'
+                )
 
                 if os.path.isfile(path_group_user):
                     # add target_group_entity key value
@@ -171,7 +171,7 @@ while i < total_user:
         continue
 
     # count_add if added 35 user
-    if added_count == (35 * total_client):
+    if count_add == (35 * total_client):
         print('sleep 2hr')
 
         for i in range(7100, 0, -1):
@@ -223,7 +223,7 @@ while i < total_user:
             count_add += 1
         else:
             count_add += 1
-            added_count += 1
+            #added_count += 1
             updatecount()
             print('Adding member With User id: ' + str(user['user_id']))
             user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
@@ -242,7 +242,7 @@ while i < total_user:
 
     except PeerFloodError as e:
         count_add -= 1
-        added_count -= 1
+        #added_count -= 1
         updatecount()
         print("Error Fooling cmnr")
         traceback.print_exc()
@@ -253,12 +253,12 @@ while i < total_user:
         # not increate i
         continue
     except UserPrivacyRestrictedError:
-        added_count -= 1
+        #added_count -= 1
         updatecount()
         print("Error Privacy")
     except FloodWaitError as e:
         print("Error Flood wait")
-        added_count -= 1
+        #added_count -= 1
         updatecount()
         traceback.print_exc()
         print("remove client: " + current_client['phone'])
@@ -271,18 +271,18 @@ while i < total_user:
                 cli['client'].disconnect()
                 time.sleep(1)
             end_time = datetime.datetime.now()
-            print(f"skip: {str(count_add - added_count)}")
-            print(f"added: {added_count}")
+            #print(f"skip: {str(count_add - #added_count)}")
+            print(f"added: {count_add}")
             updatecount()
             sys.exit()
         except:
-            print(f"skip: {str(count_add - added_count)}")
-            print(f"added: {added_count}")
+            #print(f"skip: {str(count_add - #added_count)}")
+            print(f"added: {count_add}")
             updatecount()
             sys.exit()
     except BaseException:
         print("Error other")
-        added_count -= 1
+        #added_count -= 1
         updatecount()
     i += 1
 
@@ -301,6 +301,6 @@ for cli in clients:
     cli['client'].disconnect()
     time.sleep(2)
 end_time = datetime.datetime.now()
-print(f"skip: {str(count_add - added_count)}")
-print(f"added: {str(added_count)}")
+#print(f"skip: {str(count_add - #added_count)}")
+print(f"added: {str(count_add)}")
 print(f"total time: {str(end_time - start_time)}")
