@@ -14,18 +14,14 @@ import datetime
 import os
 import json
 
-root_path = os.path.abspath(os.curdir)
-old_userid = 0
-count_add = 0
-##added_count = 0
+root_path, old_userid, count_add, added_count = os.path.abspath(os.curdir), 0, 0, 0
 
 try:
     with open(f'{root_path}/current_count.txt') as f:
         previous_count = int(f.read())
         fixprecount = previous_count
 except:
-    previous_count = 0
-    fixprecount = 0
+    previous_count, fixprecount = 0, 0
 
 
 
@@ -171,16 +167,14 @@ while i < total_user:
         continue
 
     # count_add if added 35 user
-    if count_add == (35 * total_client):
+    if added_count == (35 * total_client):
         print('sleep 2hr')
-
-        for i in range(7100, 0, -1):
-            timelft = str(datetime.timedelta(seconds=i))
-            print(f"Time Left : {timelft}", end="\r")
-            time.sleep(1)
         for cli in clients:
             cli['client'].disconnect()
             time.sleep(2)
+        print(datetime.datetime.now())
+        time.sleep(7500)
+        for cli in clients:
             cli['client'].connect()
             time.sleep(2)
         filter_clients.clear()
@@ -223,7 +217,7 @@ while i < total_user:
             count_add += 1
         else:
             count_add += 1
-            #added_count += 1
+            added_count += 1
             updatecount()
             print('Adding member With User id: ' + str(user['user_id']))
             user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
@@ -242,7 +236,7 @@ while i < total_user:
 
     except PeerFloodError as e:
         count_add -= 1
-        #added_count -= 1
+        added_count -= 1
         updatecount()
         print("Error Fooling cmnr")
         traceback.print_exc()
@@ -253,12 +247,12 @@ while i < total_user:
         # not increate i
         continue
     except UserPrivacyRestrictedError:
-        #added_count -= 1
+        added_count -= 1
         updatecount()
         print("Error Privacy")
     except FloodWaitError as e:
         print("Error Flood wait")
-        #added_count -= 1
+        added_count -= 1
         updatecount()
         traceback.print_exc()
         print("remove client: " + current_client['phone'])
@@ -271,18 +265,18 @@ while i < total_user:
                 cli['client'].disconnect()
                 time.sleep(1)
             end_time = datetime.datetime.now()
-            #print(f"skip: {str(count_add - #added_count)}")
-            print(f"added: {count_add}")
+            print(f"skip: {str(count_add - added_count)}")
+            print(f"added: {added_count}")
             updatecount()
             sys.exit()
         except:
-            #print(f"skip: {str(count_add - #added_count)}")
-            print(f"added: {count_add}")
+            print(f"skip: {str(count_add - added_count)}")
+            print(f"added: {added_count}")
             updatecount()
             sys.exit()
     except BaseException:
         print("Error other")
-        #added_count -= 1
+        added_count -= 1
         updatecount()
     i += 1
 
@@ -301,6 +295,6 @@ for cli in clients:
     cli['client'].disconnect()
     time.sleep(2)
 end_time = datetime.datetime.now()
-#print(f"skip: {str(count_add - #added_count)}")
-print(f"added: {str(count_add)}")
+print(f"skip: {str(count_add - added_count)}")
+print(f"added: {str(added_count)}")
 print(f"total time: {str(end_time - start_time)}")
