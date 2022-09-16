@@ -34,14 +34,23 @@ def filterus():
 
         path_group = f'{root_path}/data/group/{phone}.json'
         path_group2 = (
-            f'{root_path}/data/filteruser/{phone}_' + str(group_source_id)
-        ) + '.json'
-
+            ((f'{root_path}/data/filteruser/' + phone) + "_")
+            + str(group_source_id)
+            + '.json'
+        )
 
         if os.path.isfile(path_group):
-            json2 = ((f'{root_path}/data/user/{phone}_' + str(group_source_id)) + '.json')
+            json2 = (
+                ((f'{root_path}/data/user/' + phone) + "_")
+                + str(group_source_id)
+                + '.json'
+            )
 
-            json1 = ((f'{root_path}/data/user/{phone}_' + str(group_target_id)) + '.json')
+            json1 = (
+                ((f'{root_path}/data/user/' + phone) + "_")
+                + str(group_target_id)
+                + '.json'
+            )
 
             try: 
                 with open(json1) as f:
