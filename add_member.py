@@ -170,13 +170,12 @@ while i < total_user:
     if added_count == (35 * total_client):
         print('sleep 2hr')
 
-        for i in range(7100, 0, -1):
-            timelft = str(datetime.timedelta(seconds=i))
-            print("Time Left : " + timelft, end="\r")
-            time.sleep(1)
         for cli in clients:
             cli['client'].disconnect()
             time.sleep(2)
+            print(datetime.datetime.now())
+            time.sleep(7500)
+        for cli in clients:
             cli['client'].connect()
             time.sleep(2)
         filter_clients.clear()
