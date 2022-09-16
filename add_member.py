@@ -250,6 +250,8 @@ while i < total_user:
     except UserPrivacyRestrictedError:
         added_count -= 1
         updatecount()
+        print('sleep: ' + str(120 / total_client))
+        time.sleep(120 / total_client)
         print("Error Privacy")
     except FloodWaitError as e:
         print("Error Flood wait")
@@ -278,6 +280,8 @@ while i < total_user:
     except BaseException:
         print("Error other")
         added_count -= 1
+        print('sleep: ' + str(120 / total_client))
+        time.sleep(120 / total_client)
         updatecount()
     i += 1
 
