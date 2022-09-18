@@ -174,7 +174,7 @@ while i < total_user:
             cli['client'].disconnect()
             time.sleep(2)
             print(datetime.datetime.now())
-            time.sleep(7500)
+        time.sleep(7500)
         for cli in clients:
             cli['client'].connect()
             time.sleep(2)
