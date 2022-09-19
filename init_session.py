@@ -21,7 +21,7 @@ for account in accounts:
     client = TelegramClient(folder_session + phone, api_id, api_hash)
     client.start()
     if client.is_user_authorized():
-        time.slep(2)
+        time.sleep(2)
         print('Login success')
 
     else:
