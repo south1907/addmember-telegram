@@ -1,5 +1,6 @@
 from telethon import TelegramClient, connection
 import logging
+import time
 from telethon import sync, TelegramClient, events
 import json
 
