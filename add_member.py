@@ -217,8 +217,7 @@ while i < total_user:
             print("Skipped")
             count_add += 1
         else:
-            count_add += 1
-            added_count += 1
+            
             updatecount()
             print('Adding member With User id: ' + str(user['user_id']))
             user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
@@ -231,13 +230,14 @@ while i < total_user:
             print('sleep: ' + str(120 / total_client))
             time.sleep(120 / total_client)
             old_userid = int(user['user_id'])
+            count_add += 1
+            added_count += 1
             
             
             
             
     except PeerFloodError as e:
         count_add -= 1
-        added_count -= 1
         updatecount()
         print("Error Fooling cmnr")
         traceback.print_exc()
@@ -248,14 +248,12 @@ while i < total_user:
         # not increate i
         continue
     except UserPrivacyRestrictedError:
-        added_count -= 1
         updatecount()
         print('sleep: ' + str(120 / total_client))
         time.sleep(120 / total_client)
         print("Error Privacy")
     except FloodWaitError as e:
         print("Error Flood wait")
-        added_count -= 1
         updatecount()
         traceback.print_exc()
         print("remove client: " + current_client['phone'])
@@ -279,7 +277,6 @@ while i < total_user:
             sys.exit()
     except BaseException:
         print("Error other")
-        added_count -= 1
         print('sleep: ' + str(120 / total_client))
         time.sleep(120 / total_client)
         updatecount()
