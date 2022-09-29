@@ -155,9 +155,11 @@ clientlist()
 
 print('From index: ' + str(previous_count))
 total_client = len(filter_clients)
-
-total_user = filter_clients[0]['users'].__len__()
-
+try: 
+    total_user = filter_clients[0]['users'].__len__()
+except:
+    print('no user data run python get_data.py or add_st.py')
+    exit()
 i = 0
 while i < total_user:
 
