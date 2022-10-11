@@ -14,7 +14,7 @@ accounts = config['accounts']
 folder_session = 'session/'
 
 for account in accounts:
-    api_id = account['api_id']
+    api_id = int(account['api_id'])
     api_hash = account['api_hash']
     phone = account['phone']
     print(phone)
