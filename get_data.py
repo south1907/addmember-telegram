@@ -29,7 +29,7 @@ def get_group(phone, api_id, api_hash):
         
 
 def get_data_group(client, phone):
-    print(f'getting data {phone}')
+    print('getting data ' + phone)
     chats = []
     last_date = None
     chunk_size = 200
@@ -80,7 +80,7 @@ def get_data_group(client, phone):
         except Exception as e:
             print(e)
             print('error save group')
-    with open(f'data/group/{phone}.json', 'w', encoding='utf-8') as f:
+    with open('data/group/' + phone + '.json', 'w', encoding='utf-8') as f:
         json.dump(results, f, indent=4, ensure_ascii=False)
 
 
@@ -114,18 +114,18 @@ def get_data_user(client, group):
     today = datetime.now()
     last_week = today + timedelta(days=-7)
     last_month = today + timedelta(days=-30)
-    path_file = f'data/user/{phone}_{group_id}.json'
+    path_file = 'data/user/' + phone + "_" + group_id + '.json'
 
     for user in all_participants:
         # print(user)
         # print(type(user.status))
         try:
 
-            if (
-                not isinstance(user.username, type(None))
-                and str(user.username[-3:]).lower() == "bot"
-            ):
-                continue
+            if not isinstance(user.username, type(None)):
+                if str(user.username[-3:]).lower() == "bot":
+                    continue
+                else:
+                    pass
             if isinstance(user.status, UserStatusRecently):
                 date_online_str = 'online'
             else:
@@ -163,6 +163,6 @@ for account in accounts:
     phone = account['phone']
     print(phone)
     get_group(phone, api_id, api_hash)
-
-
+    
+    
 exec(open("rad.py").read())

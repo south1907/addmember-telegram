@@ -14,30 +14,34 @@ import datetime
 import os
 import json
 
-root_path, old_userid, count_add, added_count = os.path.abspath(os.curdir), 0, 0, 0
+root_path = os.path.abspath(os.curdir)
+old_userid = 0
+count_add = 0
+added_count = 0
 
 try:
-    with open(f'{root_path}/current_count.txt') as f:
+    with open(root_path + '/current_count.txt') as f:
         previous_count = int(f.read())
         fixprecount = previous_count
 except:
-    previous_count, fixprecount = 0, 0
+    previous_count = 0
+    fixprecount = 0
 
 
 
 def updatecount():
     tooot = fixprecount + count_add
-    with open(f'{root_path}/current_count.txt', 'w') as g:
+    with open(root_path + '/current_count.txt', 'w') as g:
         g.write(str(tooot))
         g.close()
 
 
 
 def get_group_by_id(groups, group_id):
-    return next(
-        (group for group in groups if (group_id == int(group['group_id']))),
-        None,
-    )
+    for group in groups:
+        if (group_id == int(group['group_id'])):
+            return group
+    return None
 
 
 print(root_path)
@@ -50,7 +54,7 @@ with open('config.json', 'r', encoding='utf-8') as f:
     config = json.loads(f.read())
 
 accounts = config['accounts']
-print(f"Total account: {len(accounts)}")
+print("Total account: " + str(len(accounts)))
 folder_session = 'session/'
 
 # group target
@@ -74,13 +78,13 @@ for account in accounts:
     client.connect()
 
     if client.is_user_authorized():
-        print(f'{phone} login success')
+        print(phone + ' login success')
         clients.append({
             'phone': phone,
             'client': client
         })
     else:
-        print(f'{phone} login fail')
+        print(phone + ' login fail')
 
 filter_clients = []
 
@@ -112,25 +116,21 @@ else:
 def clientlist():
     for my_client in clients:
         phone = my_client['phone']
-        path_group = f'{root_path}/data/group/{phone}.json'
+        path_group = root_path + '/data/group/' + phone + '.json'
         if os.path.isfile(path_group):
 
             with open(path_group, 'r', encoding='utf-8') as f:
                 groups = json.loads(f.read())
 
-            if current_target_group := get_group_by_id(
-                groups, group_target_id
-            ):
+            current_target_group = get_group_by_id(groups, group_target_id)
+
+            if current_target_group:
                 group_access_hash = int(current_target_group['access_hash'])
                 target_group_entity = InputPeerChannel(
                     group_target_id, group_access_hash)
 
-                path_group_user = (
-                    ((f'{root_path}/data/filteruser/' + phone) + "_")
-                    + str(group_source_id)
-                    + '.json'
-                )
-
+                path_group_user = root_path + '/data/filteruser/' + \
+                    phone + "_" + str(group_source_id) + '.json'
                 if os.path.isfile(path_group_user):
                     # add target_group_entity key value
                     my_client['target_group_entity'] = target_group_entity
@@ -153,11 +153,13 @@ clientlist()
 
 # run
 
-print(f'From index: {str(previous_count)}')
+print('From index: ' + str(previous_count))
 total_client = len(filter_clients)
-
-total_user = filter_clients[0]['users'].__len__()
-
+try: 
+    total_user = filter_clients[0]['users'].__len__()
+except:
+    print('no user data run python get_data.py or add_st.py')
+    exit()
 i = 0
 while i < total_user:
 
@@ -169,10 +171,11 @@ while i < total_user:
     # count_add if added 35 user
     if added_count == (35 * total_client):
         print('sleep 2hr')
+
         for cli in clients:
             cli['client'].disconnect()
             time.sleep(2)
-        print(datetime.datetime.now())
+            print(datetime.datetime.now())
         time.sleep(7500)
         for cli in clients:
             cli['client'].connect()
@@ -181,16 +184,16 @@ while i < total_user:
         clientlist()
         updatecount()
         try:
-            with open(f'{root_path}/current_count.txt') as f:
+            with open(root_path + '/current_count.txt') as f:
                 previous_count = int(f.read())
                 count_add = 0
         except Exception as e:
             pass
 
     total_client = filter_clients.__len__()
-    print(f"remain client: {str(total_client)}")
+    print("remain client: " + str(total_client))
     if total_client == 0:
-        with open(f'{root_path}/current_count.txt', 'w') as g:
+        with open(root_path + '/current_count.txt', 'w') as g:
             g.write(str(i))
             g.close()
 
@@ -198,7 +201,7 @@ while i < total_user:
         break
 
     current_index = count_add % total_client
-    print(f"current_index: {str(current_index)}")
+    print("current_index: " + str(current_index))
     current_client = filter_clients[current_index]
     client = current_client['client']
     user = current_client['users'][i]
@@ -216,27 +219,27 @@ while i < total_user:
             print("Skipped")
             count_add += 1
         else:
-            count_add += 1
-            added_count += 1
+            
             updatecount()
             print('Adding member With User id: ' + str(user['user_id']))
             user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
-
+            
             client(InviteToChannelRequest(target_group_entity, [user_to_add]))
-
-
+            
+            
             print('Added member ' + user['username'] + ' successfully ;-)')
-
-            print(f'sleep: {str(120 / total_client)}')
+            
+            print('sleep: ' + str(120 / total_client))
             time.sleep(120 / total_client)
             old_userid = int(user['user_id'])
-
-
-
-
+            count_add += 1
+            added_count += 1
+            
+            
+            
+            
     except PeerFloodError as e:
         count_add -= 1
-        added_count -= 1
         updatecount()
         print("Error Fooling cmnr")
         traceback.print_exc()
@@ -247,12 +250,12 @@ while i < total_user:
         # not increate i
         continue
     except UserPrivacyRestrictedError:
-        added_count -= 1
         updatecount()
+        print('sleep: ' + str(120 / total_client))
+        time.sleep(120 / total_client)
         print("Error Privacy")
     except FloodWaitError as e:
         print("Error Flood wait")
-        added_count -= 1
         updatecount()
         traceback.print_exc()
         print("remove client: " + current_client['phone'])
@@ -265,22 +268,23 @@ while i < total_user:
                 cli['client'].disconnect()
                 time.sleep(1)
             end_time = datetime.datetime.now()
-            print(f"skip: {str(count_add - added_count)}")
-            print(f"added: {added_count}")
+            print("skip: " + str(count_add - added_count))
+            print("added: " + str(added_count))
             updatecount()
             sys.exit()
         except:
-            print(f"skip: {str(count_add - added_count)}")
-            print(f"added: {added_count}")
+            print("skip: " + str(count_add - added_count))
+            print("added: " + str(added_count))
             updatecount()
             sys.exit()
     except BaseException:
         print("Error other")
-        added_count -= 1
+        print('sleep: ' + str(120 / total_client))
+        time.sleep(120 / total_client)
         updatecount()
     i += 1
 
-with open(f'{root_path}/current_count.txt', 'w') as g:
+with open(root_path + '/current_count.txt', 'w') as g:
     g.write(str(i))
     g.close()
 print("disconnect")
@@ -288,13 +292,13 @@ extime = str(2 * total_client)
 if extime == str(0):
     print("exiting program wait For Some Seconds")
 else:
-    print(f"exiting program wait For {extime} Some Seconds")
+    print("exiting program wait For " + extime + " Some Seconds")
 
 
 for cli in clients:
     cli['client'].disconnect()
     time.sleep(2)
 end_time = datetime.datetime.now()
-print(f"skip: {str(count_add - added_count)}")
-print(f"added: {str(added_count)}")
-print(f"total time: {str(end_time - start_time)}")
+print("skip: " + str(count_add - added_count))
+print("added: " + str(added_count))
+print("total time: " + str(end_time - start_time))
