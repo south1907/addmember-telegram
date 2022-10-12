@@ -33,13 +33,10 @@ def filterus():
         phone = my_client['phone']
 
         path_group = root_path + '/data/group/' + phone + '.json'
-        path_group2 = root_path + '/data/filteruser/' + \
-            phone + "_" + str(group_source_id) + '.json'
+        path_group2 = root_path + '/data/filteruser/' + phone + "_" + str(group_source_id) + '.json'
         if os.path.isfile(path_group):
-            json2 = root_path + '/data/user/' + \
-                phone + "_" + str(group_source_id) + '.json'
-            json1 = root_path + '/data/user/' + \
-                phone + "_" + str(group_target_id) + '.json'
+            json2 = root_path + '/data/user/' + phone + "_" + str(group_source_id) + '.json'
+            json1 = root_path + '/data/user/' + phone + "_" + str(group_target_id) + '.json'
             try: 
                 with open(json1) as f:
                     json11 = json.loads(f.read())
