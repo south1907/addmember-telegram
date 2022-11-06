@@ -66,7 +66,7 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
  > `accounts`: list String of your phones
 
 
- * Step 3: After setting up your `config.json` or running `python make_config.py` file, run `python3 init_session.py`, enter phone and the code you received
+ * Step 3: After setting up your `config.json`, run `python3 init_session.py`, enter phone and the code you received
 
  ![Init session](images/step1.png)
 
