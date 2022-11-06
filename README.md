@@ -1,5 +1,4 @@
-# Donate button in github
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://ko-fi.com/patharanor)
+[![Donate](https://img.shields.io/badge/donate-buymeacoffee-green)](https://www.buymeacoffee.com/heva)
 
 # addmember-telegram
 Use `python 3` to add member from Group A to Group B (migrate members of your group)
