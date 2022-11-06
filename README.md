@@ -4,7 +4,7 @@
 [![Donate](https://img.shields.io/badge/donate-buymeacoffee-green)](https://www.buymeacoffee.com/heva)
 
 # addmember-telegram
-Use `python 3` to add member from Source Group to Target Group (migrate members of your group)
+Use `Python` to add member from Source Group to Target Group (migrate members of your group)
 
 
 ## Requirement
@@ -111,9 +111,9 @@ Use `python 3` to add member from Source Group to Target Group (migrate members 
 
 ## Community Group
 
-Telegram Group Official: [Link group](https://t.me/amtcommunityoffcial)
+Telegram Group Official: [ATM Community Official](https://t.me/amtcommunityoffcial)
 
-Telegram Group of Vietnamese: [Link group](https://t.me/atmcommunityvn)
+Telegram Group of Vietnamese: [ATM Community (Việt Nam)](https://t.me/atmcommunityvn)
 
 ## Donation
 - [Buy me a coffee](https://www.buymeacoffee.com/heva)
