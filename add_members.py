@@ -55,7 +55,8 @@ if 'from_date_active' in config:
 	from_date_active = config['from_date_active']
 
 i = previous_count # index loop user
-count_added = 0 # count added success
+count_added = 0 # count added success (in 1 big round)
+total_count_added = 0 # total count added success
 
 assert len(accounts) > 0
 
@@ -117,6 +118,7 @@ while i < total_user:
 		for cli in clients:
 			cli['client'].connect()
 			time.sleep(2)
+		count_added = 0 # reset
 
 	logging.info('current index user: ' + str(i))
 	user = users[i]
@@ -141,6 +143,7 @@ while i < total_user:
 		logging.info('sleep: ' + str(total_time_in_round / total_client))
 		time.sleep(total_time_in_round / total_client)
 		count_added += 1
+		total_count_added += 1
 
 	if status_add == 'FLOOD' or status_add == 'FLOOD_WAIT':
 		logging.info('FLOOD, remove client: ' + current_client['phone'])
@@ -170,5 +173,5 @@ for cli in clients:
 	time.sleep(2)
 end_time = datetime.now()
 
-logging.info("added: " + str(count_added))
+logging.info("added: " + str(total_count_added))
 logging.info("total time: " + str(end_time - start_time))

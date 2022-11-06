@@ -1,136 +1,132 @@
+
+![Python](https://img.shields.io/static/v1?label=Python&message=3.9.2&color=306998&logo=python&logoColor=white)
+![Release](https://img.shields.io/static/v1?label=Release&message=v2.0&color=306998)
+[![Donate](https://img.shields.io/badge/donate-buymeacoffee-green)](https://www.buymeacoffee.com/heva)
+
 # addmember-telegram
-Use `python 3` to add member from Group A to Group B (migrate members of your group)
+Use `Python` to add member from Source Group to Target Group (migrate members of your group)
 
-## TODO: NEED UPDATE README.MD
 
-## Require
+## Requirement
 * Environment of python 3 (Linux, Window)
 * Need about 20 accounts to run (Switches accounts automatically when blocked)
-* Each account needs to be in Source Group and Target Group
-* Notice your region phone
-* Your group must be a Super group
+* Your group must have username (public group)
+* Account have permission add member to your Target Group (not need join, script will be auto join target group)
+* Source group is public group or accounts have joined Source Group
 
-https://www.wikihow.com/Convert-a-Telegram-Group-to-a-Supergroup-on-PC-or-Mac
-
-![Supper group](images/note_tele.png)
-![Upgraded Supper group](images/note_tele2.png)
+![Target Group is public](images/public-group.png)
 
 ### Guide line
 
 <details>
-  <summary>Click me</summary>
+  <summary>Show more</summary>
+
+  Note: On Window, use `pip` instead of `pip3`, `python` instead of `python3`
   
  * Step 1: Install package `telethon` `readchar`
  ```
- pip install telethon
+ pip3 install telethon
  
- pip install readchar
+ pip3 install readchar
  ```
+
+ or
+
+ ```
+ pip3 install -r requirements.txt
+ ```
+
+ Note: 
  
- * Step 2: Run python make_config.py
+ * Step 2: create file config.json base on config.example.json
  
  
  ```
  {
-	"group_target": 1398120166, --> id target group
-	"group_source": 1490302444, --> id source group
-    "group_source_username": "https://t.me/groupname", --> address of source group
-	"accounts": [ --> array account
-		{
-			"phone": "+84XXXX",
-			"api_id": 1234566,
-			"api_hash": "57c6f3c72c2f21676d53be2eXXXXXX"
-		}
-	]
- }
+  "group_source": "atmcommunityvn",
+  "group_target": "ATMCommunityOfficial",
+  "api_id": 1234566,
+  "api_hash": "57c6f3c72c2f21676d53be2eXXXXXX",
+  "from_date_active": "20201114",
+  "accounts": [
+    "+84Heva",
+    "+84Love",
+    "+84Have"
+  ]
+}
  ```
- `group_target` and `group_source`: ur source group where u will pick members from adn ur target group is where members eill be added,
-`accounts`: list your Telegram accounts; and for each accounts/phone, create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file.
+ > `group_source`: username of Group Source
+
+ > `group_target`: username of Group Target
+
+ > `api_id` and `api_hash`: Need only one (`api_id` and `api_hash`), how to get them: create an app in https://my.telegram.org/apps and copy the `api_id` and  `api_hash` into the config file
+
+ > `group_target`: username of Group Target
+
+ > `accounts`: list String of your phones
 
 
-
- > To add new account after first time run Python make_config.py
-
-
- * Step 3: After setting up your `config.json` or running `python make_config.py` file, run `python init_session.py`, enter phone and the code you received
+ * Step 3: After setting up your `config.json` or running `python make_config.py` file, run `python3 init_session.py`, enter phone and the code you received
 
  ![Init session](images/step1.png)
 
- * Step 4: run `python add_st.py` to get data of group, data user and save file in folder `data`
+ * Step 4: run `python3 get_members.py` to get data user and save file in folder `data` with path: `data/atmcommunityvn.json` (`atmcommunityvn` is username's Source Group)
 
- ### Note :
- - If U cant get Group link.  add all the users to source group then run python get_data.py
- - if u get any other error. add all the users to source group then run python get_data.py
-
-
- ![Get data](images/step2.png)
- ![Data after Get](images/data_step2.png)
 
  ```
  {
-    "user_id": "847587728",
-    "access_hash": "2393668282771176567",
-    "username": "None"
+    "user_id": 847587728,
+    "access_hash": 2393668282771176567,
+    "username": None
  }
  ```
- One group have one list user (list username), but each account Telegram have list User (difference user_id, access_hash). Use `user_id` and `access_hash` to add member, so you need get list user of each account Telegram.
- Note: Use username have also use to add member, but something use not have username
 
- After run get data, check again file in data/group and edit file config to change group_target, group_source, which you want to add.
+ Use `user_id` and `access_hash` to add member. Use username have also use to add member, but something use not have username
 
- * Step 5: run `python add_member.py` to add member from `group_source` to `group_target`
+ * Step 4: run `python add_members.py` to add member from `group_source` to `group_target`
  Logic: 
-	* after adding 1 member, sleep 1 minutes
-	* after each account adds 35 members --> sleep 15 minutes
-	* Remove account when there is a Flood Wait Error
+	* after adding 1 member, sleep 120s / total_client. If you have 2 accounts, it will sleep 60s
+	* after each account adds 35 members --> sleep 2 hours
+	* Remove account when there is a Flood, Flood Wait Error
 	* Break if there are no more accounts
 
- Note: If your account gets blocked, go to https://web.telegram.org/#/im?p=@SpamBot and chat /start to see the time the ban would be lifted
+ Note: If your account gets blocked, go to https://web.telegram.org/k/#@SpamBot and chat /start to see the time the ban would be lifted
 
  ![Get data](images/block.png)
 
- Done!
- 
- ###Note : After Changing Source delte Current_count.txt
+ If your account is not blocked, but error `FloodWaitError`, in Terminal like as:
 
+ ![FloodWaitError](images/flood-wait.png)
+
+ and you must wait 77464 seconds
+ 
  > You can Stop The script By crtl+z or crtl+c. type y
+
+ Note: current_count.txt save current index. If It is interupt, please check number index in file. If note current index (base on log in Terminal), edit it to correct and re-run.
+
+ ![Current index](images/current-index.png)
 
 </details>
 
-### Short Guide
-```
-1. python make_config.py
-2. pip install -r requirements.txt
-3. run `python add_st.py`
-4. run `python add_member.py`
-5. use Crtl+z or Crtl+c to stop the script
- ```
-## member info:
 
-- member are filter out from ur group so u wont have already invited member from other source group.
-- it happen automatically when u use add_st.py or get_data.py
+## Community Group
 
-## Ps: 
-This repo is now actively being maintained and updated by:
-- south1907 
-- DanielTheGeek
-- Nimma0001
+Telegram Group Official: [ATM Community Official](https://t.me/amtcommunityoffcial)
 
-Create a new issue if you have legit issues and we will do our best to resolve them.
+Telegram Group of Vietnamese: [ATM Community (Việt Nam)](https://t.me/atmcommunityvn)
 
-## Contributing:
-* Fork the repo on Github
-* Clone the repo using `git clone addmember-telegram`
-* Make changes and stage the files: `git add .`
-* Commit the changes: `git commit -m "Changed a few things"`
-* Push the changes to your Github repo: `git push -u origin main`
-* Submit a pull request.
+## Donation
+- [Buy me a coffee](https://www.buymeacoffee.com/heva)
+- [Ko-fi](https://ko-fi.com/hevapham)
+- [Momo](https://me.momo.vn/AEI7uDFysmI9iBT8i8IR) - (Việt Nam)
+- [Viettel Pay](https://vtpay.page.link/GNUPHZyJx2JU2xN6A) - (Việt Nam)
 
-## More info
-Wiki: [Link Wiki](https://github.com/south1907/addmember-telegram/wiki/1.-Welcome)
 
-Alpha-Branch: [Link For Branch](https://github.com/nimma0001/addmember-telegram)
+If this project help you, you can give me a cup of coffee :)
 
-Telegram Group: [Link group](https://t.me/amtcommunity)
 
-Telegram Group of Vietnamese: [Link group](https://t.me/atmcommunityvn)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/hevapham)
+
+## Special Thanks
+
+Updating
