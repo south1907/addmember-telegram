@@ -127,6 +127,10 @@ If this project help you, you can give me a cup of coffee :)
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/hevapham)
 
+## Request New Feature
+
+https://github.com/south1907/addmember-telegram/discussions/72
+
 ## Special Thanks
 
 Updating
