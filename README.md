@@ -1,6 +1,7 @@
 # addmember-telegram
 Use `python 3` to add member from Group A to Group B (migrate members of your group)
 
+## TODO: NEED UPDATE README.MD
 
 ## Require
 * Environment of python 3 (Linux, Window)
