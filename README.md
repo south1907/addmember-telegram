@@ -1,3 +1,6 @@
+
+![Python](https://img.shields.io/static/v1?label=Python&message=3.9.2&color=306998&logo=python&logoColor=white)
+![Release](https://img.shields.io/static/v1?label=Release&message=v2.0&color=306998)
 [![Donate](https://img.shields.io/badge/donate-buymeacoffee-green)](https://www.buymeacoffee.com/heva)
 
 # addmember-telegram
@@ -140,9 +143,14 @@ Telegram Group of Vietnamese: [Link group](https://t.me/atmcommunityvn)
 ## Donation
 - [Buy me a coffee](https://www.buymeacoffee.com/heva)
 - [Ko-fi](https://ko-fi.com/hevapham)
+- [Momo](https://me.momo.vn/AEI7uDFysmI9iBT8i8IR) - (Việt Nam)
 
 
 If this project help you, you can give me a cup of coffee :)
 
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/hevapham)
+
+## Special Thanks
+
+Updating
