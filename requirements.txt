@@ -1,2 +1,2 @@
-telethon
-readchar
+Telethon==1.25.4
+readchar==4.0.3
