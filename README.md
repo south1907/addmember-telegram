@@ -21,7 +21,7 @@ Use `python 3` to add member from Source Group to Target Group (migrate members 
 <details>
   <summary>Show more</summary>
 
-  ###Note: On Window, use `pip` instead of `pip3`, `python` instead of `python3`
+  Note: On Window, use `pip` instead of `pip3`, `python` instead of `python3`
   
  * Step 1: Install package `telethon` `readchar`
  ```
@@ -75,9 +75,9 @@ Use `python 3` to add member from Source Group to Target Group (migrate members 
 
  ```
  {
-    "user_id": "847587728",
-    "access_hash": "2393668282771176567",
-    "username": "None"
+    "user_id": 847587728,
+    "access_hash": 2393668282771176567,
+    "username": None
  }
  ```
 
@@ -90,7 +90,7 @@ Use `python 3` to add member from Source Group to Target Group (migrate members 
 	* Remove account when there is a Flood, Flood Wait Error
 	* Break if there are no more accounts
 
- ###Note: If your account gets blocked, go to https://web.telegram.org/k/#@SpamBot and chat /start to see the time the ban would be lifted
+ Note: If your account gets blocked, go to https://web.telegram.org/k/#@SpamBot and chat /start to see the time the ban would be lifted
 
  ![Get data](images/block.png)
 
@@ -99,12 +99,12 @@ Use `python 3` to add member from Source Group to Target Group (migrate members 
  ![FloodWaitError](images/flood-wait.png)
 
  and you must wait 77464 seconds
-
- Done!
  
- ###Note : After Changing Source delte Current_count.txt
-
  > You can Stop The script By crtl+z or crtl+c. type y
+
+ Note: current_count.txt save current index. If It is interupt, please check number index in file. If note current index (base on log in Terminal), edit it to correct and re-run.
+
+ ![Current index](images/current-index.png)
 
 </details>
 
