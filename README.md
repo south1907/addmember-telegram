@@ -1,3 +1,6 @@
+# Donate button in github
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://ko-fi.com/patharanor)
+
 # addmember-telegram
 Use `python 3` to add member from Group A to Group B (migrate members of your group)
 
@@ -134,3 +137,13 @@ Alpha-Branch: [Link For Branch](https://github.com/nimma0001/addmember-telegram)
 Telegram Group: [Link group](https://t.me/amtcommunity)
 
 Telegram Group of Vietnamese: [Link group](https://t.me/atmcommunityvn)
+
+## Donation
+- [Buy me a coffee](https://www.buymeacoffee.com/heva)
+- [Ko-fi](https://ko-fi.com/hevapham)
+
+
+If this project help you, you can give me a cup of coffee :)
+
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/hevapham)
