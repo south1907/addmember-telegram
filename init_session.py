@@ -1,8 +1,13 @@
-from telethon import TelegramClient, connection
+#!/usr/bin/env python3
+
+import json
 import logging
 import time
+
 from telethon import sync, TelegramClient, events
-import json
+from telethon import TelegramClient, connection
+
+from utils import *
 
 with open('config.json', 'r') as f:
     config = json.loads(f.read())
@@ -13,18 +18,17 @@ accounts = config['accounts']
 
 folder_session = 'session/'
 
-for account in accounts:
-    api_id = int(account['api_id'])
-    api_hash = account['api_hash']
-    phone = account['phone']
-    print(phone)
+api_id = int(config['api_id'])
+api_hash = config['api_hash']
+for phone in accounts:
+    logging.info(phone)
 
     client = TelegramClient(folder_session + phone, api_id, api_hash)
     client.start()
     if client.is_user_authorized():
         time.sleep(2)
-        print('Login success')
+        logging.info('Login success')
 
     else:
-        print('Login fail')
+        logging.info('Login fail')
     client.disconnect()

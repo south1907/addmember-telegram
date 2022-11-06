@@ -1,14 +1,10 @@
 {
-	"group_target": 1398120166,
-	"group_source": 1490302444,
-	"group_source_username": "https://t.me/amtcommunity",
-	"group_target_username": "https://t.me/bolanleq",
+	"group_source": "atmcommunityvn",
+	"group_target": "ATMCommunityOfficial",
+	"api_id": 1007498,
+	"api_hash": "57c6f3c72c2f21676d53be2e1deab3aa",
 	"from_date_active": "20201114",
 	"accounts": [
-		{
-			"phone": "+84XXXX",
-			"api_id": 1234566,
-			"api_hash": "57c6f3c72c2f21676d53be2eXXXXXX"
-		}
+		"+84XXX"
 	]
 }

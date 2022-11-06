@@ -1,6 +1,12 @@
-session/+84*
-phone.txt
-current_count.txt
-errors.txt
-config.json
+
 .idea
+__pycache__
+
+session
+!session/__init__
+data/*
+!data/__init__
+
+config.json
+current_count.txt
+
