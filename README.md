@@ -115,6 +115,12 @@ Telegram Group Official: [ATM Community Official](https://t.me/amtcommunityoffci
 
 Telegram Group of Vietnamese: [ATM Community (Việt Nam)](https://t.me/atmcommunityvn)
 
+## Request New Feature
+[Write your request](https://github.com/south1907/addmember-telegram/discussions/72)
+
+## Share your story
+[Write your story](https://github.com/south1907/addmember-telegram/discussions/74)
+
 ## Donation
 - [Buy me a coffee](https://www.buymeacoffee.com/heva)
 - [Ko-fi](https://ko-fi.com/hevapham)
@@ -128,10 +134,6 @@ If this project help you, you can give me a cup of coffee :)
 
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/hevapham)
-
-## Request New Feature
-
-https://github.com/south1907/addmember-telegram/discussions/72
 
 ## Special Thanks
 
