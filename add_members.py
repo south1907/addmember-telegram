@@ -139,7 +139,7 @@ while i < total_user:
 
 	logging.info("status_add: " + status_add)
 	if status_add == 'SUCCESS':
-		logging.info('Added member ' + user['username'] + ' successfully ;-)')	
+		logging.info('Added member ' + str(user['user_id']) + ' successfully ;-)')	
 		logging.info('sleep: ' + str(total_time_in_round / total_client))
 		time.sleep(total_time_in_round / total_client)
 		count_added += 1

@@ -24,7 +24,7 @@ def get_member_by_group_username(client, group_username):
 	all_data = [] # list telethon.tl.types.User
 	
 	entity = client.get_entity(group_username)
-	limit = 20
+	limit = 200
 	my_filter = ChannelParticipantsSearch('')
 
 	i = 0
@@ -39,7 +39,6 @@ def get_member_by_group_username(client, group_username):
 		all_data.extend(user_list.users)
 
 		i += 1
-		break
 
 	return all_data
 	
