@@ -129,8 +129,8 @@ Telegram Group of Vietnamese: [ATM Community (Việt Nam)](https://t.me/atmcommu
 - [Momo](https://me.momo.vn/AEI7uDFysmI9iBT8i8IR) - (Việt Nam)
 - [Viettel Pay](https://vtpay.page.link/GNUPHZyJx2JU2xN6A) - (Việt Nam)
 
-
-If this project help you, you can give me a cup of coffee :)
+If this project help you, you can give me a cup of coffee ☕☕☕
+Your donation will make me have more motivation to research, update, turning, build super super feature for the Project.
 
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ko-fi.com/hevapham)
