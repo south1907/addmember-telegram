@@ -43,6 +43,8 @@ else:
 	last_month = today + timedelta(days=-30)
 	for user in data:
 		try:
+			date_online_str = '19700102'
+			date_online = None
 			if not isinstance(user.username, type(None)):
 				if str(user.username[-3:]).lower() == "bot":
 					continue
@@ -58,7 +60,8 @@ else:
 				if isinstance(user.status, UserStatusOffline):
 					date_online = user.status.was_online
 
-				date_online_str = date_online.strftime("%Y%m%d")
+				if date_online:
+					date_online_str = date_online.strftime("%Y%m%d")
 			tmp = {
 				'user_id': user.id,
 				'access_hash': user.access_hash,
@@ -67,6 +70,7 @@ else:
 			}
 			results.append(tmp)
 		except BaseException:
+			traceback.print_exc()
 			logging.error("Error get user")
 
 	path_file = folder_data + str(group_source) + '.json'
