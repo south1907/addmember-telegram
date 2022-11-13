@@ -95,3 +95,43 @@ def update_count(path, current_index):
 	with open(path, 'w') as g:
 		g.write(str(current_index))
 		g.close()
+
+def add_multiple_member_to_group(client, group_entity, users):
+
+	"""
+	:param client: TelegramClient
+	:param group_entity: entity group
+	:param user: InputPeerUser
+	:return: string - SUCCESS, FLOOD, FLOOD_WAIT, USER_PRIVACY, ERROR_OTHER
+  
+	add one member to group
+	"""
+	
+	result = 'SUCCESS'
+	try:
+		client(InviteToChannelRequest(
+			group_entity,
+			users
+		))
+	except PeerFloodError as e:
+		logging.error("Error PeerFloodError")
+		traceback.print_exc()
+		result = 'FLOOD'
+	except FloodWaitError as e:
+		logging.error("Error FloodWaitError")
+		traceback.print_exc()
+		result = 'FLOOD_WAIT'
+	except UserPrivacyRestrictedError:
+		logging.error("Error UserPrivacyRestrictedError")
+		result = 'USER_PRIVACY'
+	except BaseException:
+		logging.error("Error other")
+		traceback.print_exc()
+		result = 'ERROR_OTHER'
+
+	return result
+
+def update_count(path, current_index):
+	with open(path, 'w') as g:
+		g.write(str(current_index))
+		g.close()
