@@ -123,7 +123,7 @@ while i < total_user:
 	# not add user overdue (not online far away)
 	if user['date_online'] != 'online' and user['date_online'] < from_date_active:
 		i += 1
-		logging.info('User ' + user['user_id'] + ' has time active: ' +
+		logging.info('User ' + str(user['user_id']) + ' has time active: ' +
 			  user['date_online'] + ' is overdue')
 		continue
 
@@ -132,6 +132,13 @@ while i < total_user:
 	current_client = clients[count_added % total_client]
 
 	logging.info('Adding user id: ' + str(user['user_id']))
+
+	if current_client['phone'] not in user:
+		i += 1
+		logging.info('ignore user id: ' + str(user['user_id']) + ' by not have information for client: ' + current_client['phone'])
+		continue
+
+
 	user_to_add = InputPeerUser(int(user[current_client['phone']]['user_id']), int(user[current_client['phone']]['access_hash']))
 	status_add = add_member_to_group(current_client['client'], current_client['group_target'], user_to_add)
 
