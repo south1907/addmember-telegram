@@ -18,7 +18,7 @@ def get_member_by_group_username(client, group_username):
 	:param client: TelegramClient
 	:param group_username: username's group
 	:return: list telethon.tl.types.User
-  
+
 	Get all member of group by group username
 	"""
 	all_data = [] # list telethon.tl.types.User
@@ -63,7 +63,7 @@ def add_member_to_group(client, group_entity, user):
 	:param group_entity: entity group
 	:param user: InputPeerUser
 	:return: string - SUCCESS, FLOOD, FLOOD_WAIT, USER_PRIVACY, ERROR_OTHER
-  
+
 	add one member to group
 	"""
 	
@@ -92,6 +92,45 @@ def add_member_to_group(client, group_entity, user):
 	return result
 
 def update_count(path, current_index):
+	"""
+	:param path: path
+	:param current_index: current_index
+	:return: void
+
+	"""
 	with open(path, 'w') as g:
 		g.write(str(current_index))
 		g.close()
+
+def read_data_member(path_data):
+	"""
+	:param client: path_data
+	:return: list member with user_id, access_hash each phone
+
+	"""
+	result = []
+	dict_member = {}
+	list_file = os.listdir(path_data)
+
+	for file_name in list_file:
+		phone = file_name.split('.')[0]
+		temp_data_file = []
+		with open(path_data + '/' + file_name, encoding='utf-8') as f:
+			temp_data_file = json.loads(f.read())
+
+		for item in temp_data_file:
+			if item['user_id'] not in dict_member:
+				dict_member[item['user_id']] = {
+					'user_id': item['user_id'],
+					'date_online': item['date_online']
+				}
+
+			dict_member[item['user_id']][phone] = {
+				'user_id': item['user_id'],
+				'access_hash': item['access_hash']
+			} 
+
+	for key_map in dict_member:
+		result.append(dict_member[key_map])
+	
+	return result

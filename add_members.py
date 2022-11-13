@@ -39,9 +39,8 @@ time_big_sleep = 7200
 clients = []
 
 # data user need add to group
-path_file = folder_data + str(group_source) + '.json'
-with open(path_file, 'r', encoding='utf-8') as f:
-	users = json.loads(f.read())
+path_folder_file = folder_data + '/' + str(group_source)
+users = read_data_member(path_folder_file)
 
 try:
 	with open(path_current_count, 'r') as f:
@@ -91,20 +90,19 @@ for phone in accounts:
 	if client.is_user_authorized():
 		# join group
 		client(JoinChannelRequest(group_target))
+		entity_group = client.get_entity(group_target)
 		clients.append({
 			'phone': phone,
-			'client': client
+			'client': client,
+			'group_target': entity_group
 		})
 	else:
 		logging.info(phone + ' login fail')
 
-assert len(clients) > 0
-
-# use first client to get entity_group_target
-entity_group_target = clients[0]['client'].get_entity(group_target)
-
 total_user = len(users)
 total_client = len(clients)
+logging.info('total member need to add : ' + str(total_user))
+logging.info('total account run: ' + str(total_client))
 
 while i < total_user:
 
@@ -134,8 +132,8 @@ while i < total_user:
 	current_client = clients[count_added % total_client]
 
 	logging.info('Adding user id: ' + str(user['user_id']))
-	user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
-	status_add = add_member_to_group(current_client['client'], entity_group_target, user_to_add)
+	user_to_add = InputPeerUser(int(user[current_client['phone']]['user_id']), int(user[current_client['phone']]['access_hash']))
+	status_add = add_member_to_group(current_client['client'], current_client['group_target'], user_to_add)
 
 	logging.info("status_add: " + status_add)
 	if status_add == 'SUCCESS':
@@ -153,8 +151,12 @@ while i < total_user:
 		# cal total_client
 		total_client = len(clients)
 
-	if status_add == 'USER_PRIVACY' or status_add == 'ERROR_OTHER':
+	if status_add == 'USER_PRIVACY':
 		logging.info(status_add + ', skip user')
+
+	if status_add == 'ERROR_OTHER':
+		logging.info(status_add + ', skip user')
+		time.sleep(total_time_in_round / total_client)
 
 
 	# if status_add is not FLOOD and FLOOD_WAIT
