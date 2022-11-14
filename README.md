@@ -83,6 +83,9 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
  Use `user_id` and `access_hash` to add member. Use username have also use to add member, but something use not have username
 
+ One folder is created in folder `data` and have some file `.json` save data of members. If you change accounts (add more account) you need re-run `python3 get_members.py`.
+
+
  * Step 4: run `python add_members.py` to add member from `group_source` to `group_target`
  Logic: 
 	* after adding 1 member, sleep 120s / total_client. If you have 2 accounts, it will sleep 60s
