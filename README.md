@@ -127,8 +127,6 @@ Telegram Group of Vietnamese: [ATM Community (Việt Nam)](https://t.me/atmcommu
 ## Donation
 - [Buy me a coffee](https://www.buymeacoffee.com/heva)
 - [Ko-fi](https://ko-fi.com/hevapham)
-- BTC wallet: 14t3e2v7zsBv8M8RebtzVSmGtwQtTCEkqw
-- BTC (BEP20): 0xd42400038ef8b76603e47246dec1721df0ab3bd2
 - [Momo](https://me.momo.vn/AEI7uDFysmI9iBT8i8IR) - (Việt Nam)
 - [Viettel Pay](https://vtpay.page.link/GNUPHZyJx2JU2xN6A) - (Việt Nam)
 
