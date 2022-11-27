@@ -18,6 +18,8 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
 ### Guide line
 
+[Video Tutorial](https://youtu.be/qnNsgHCMQYk)
+
 <details>
   <summary>Show more</summary>
 
