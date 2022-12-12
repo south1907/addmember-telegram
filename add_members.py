@@ -20,7 +20,6 @@ with open('config.json', 'r', encoding='utf-8') as f:
 root_path = os.path.dirname(os.path.abspath(__file__))
 folder_session = root_path + '/session/'
 folder_data = root_path + '/data/'
-path_current_count = root_path + '/current_count.txt'
 
 accounts = config['accounts']
 
@@ -42,44 +41,16 @@ clients = []
 path_folder_file = folder_data + '/' + str(group_source)
 users = read_data_member(path_folder_file)
 
-try:
-	with open(path_current_count, 'r') as f:
-		previous_count = int(f.read())
-except:
-	previous_count = 0
-
 # date_online_from
 from_date_active = '19700101'
 if 'from_date_active' in config:
 	from_date_active = config['from_date_active']
 
-i = previous_count # index loop user
+i = 0 # alway from 0 because have logic check user_id from target group
 count_added = 0 # count added success (in 1 big round)
 total_count_added = 0 # total count added success
 
 assert len(accounts) > 0
-
-def handler(signum, frame):
-	msg = " Do you really want to exit? y/n\n"
-	print(msg, end="", flush=True)
-	res = readchar.readchar()
-	if res == 'y':
-		for cli in clients:
-			cli['client'].disconnect()
-
-		update_count(path_current_count, i)
-		sys.exit()
-	else:
-		print("", end="\r", flush=True)
-		print(" " * len(msg), end="", flush=True)  # clear the printed line
-		print("    ", end="\r", flush=True)
-
-if platform.system() == 'Windows':
-	signal.signal(signal.SIGTERM, handler)
-	signal.signal(signal.SIGINT, handler)
-else:
-	signal.signal(signal.SIGINT, handler)
-	signal.signal(signal.SIGTSTP, handler)
 
 # init TelegramClient 
 for phone in accounts:
@@ -104,6 +75,9 @@ total_client = len(clients)
 logging.info('total member need to add : ' + str(total_user))
 logging.info('total account run: ' + str(total_client))
 
+# use first client to get list user_id of target group
+list_user_id_in_target = get_list_user_id_of_group(clients[0]['client'], group_target)
+
 while i < total_user:
 
 	# count_added if added 35 user
@@ -127,6 +101,10 @@ while i < total_user:
 			  user['date_online'] + ' is overdue')
 		continue
 
+	if user['user_id'] in list_user_id_in_target:
+		i += 1
+		logging.info('User ' + str(user['user_id']) + ' in target group, not add')
+		continue
 	
 	current_index = count_added % total_client
 	current_client = clients[count_added % total_client]
@@ -174,8 +152,6 @@ while i < total_user:
 	if total_client == 0:
 		logging.info('END: accounts is empty')
 		break
-
-update_count(path_current_count, i)
 
 for cli in clients:
 	cli['client'].disconnect()

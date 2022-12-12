@@ -41,6 +41,22 @@ def get_member_by_group_username(client, group_username):
 		i += 1
 
 	return all_data
+
+def get_list_user_id_of_group(client, group_username):
+
+	"""
+	:param client: TelegramClient
+	:param group_username: username's group
+	:return: list user_id
+
+	Get list user_id of group by group username
+	"""
+	all_data = get_member_by_group_username(client, group_username)
+	all_data_id = [] # list user_id
+	for item in all_data:
+		all_data_id.append(item.id)
+
+	return all_data_id
 	
 
 def get_member_by_group_id(client, group_id):
