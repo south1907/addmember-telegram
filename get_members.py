@@ -18,62 +18,64 @@ folder_session = root_path + '/session/'
 folder_data = root_path + '/data/'
 
 accounts = config['accounts']
-
-assert len(accounts) > 0
-
-phone = accounts[0]
 group_source = config['group_source']
 group_target = config['group_target']
 api_id = int(config['api_id'])
 api_hash = config['api_hash']
 
-client = TelegramClient(folder_session + phone, api_id, api_hash)
-client.connect()
-if not client.is_user_authorized():
-	logging.error('Login fail, check first account ('+phone+'), need to run init_session')
-	
-else:
-	# not need to join
-	data = get_member_by_group_username(client, group_source)
+for phone in accounts:
+	client = TelegramClient(folder_session + phone, api_id, api_hash)
+	client.connect()
+	if not client.is_user_authorized():
+		logging.error('Login fail, check account ('+phone+'), need to run init_session')
+		
+	else:
+		path_group = folder_data + str(group_source) + '/'
+		try: 
+			os.mkdir(path_group)
+		except OSError as error: 
+			pass
 
-	results = [] # list object member to save file
+		data = get_member_by_group_username(client, group_source)
 
-	today = datetime.now()
-	last_week = today + timedelta(days=-7)
-	last_month = today + timedelta(days=-30)
-	for user in data:
-		try:
-			date_online_str = '19700102'
-			date_online = None
-			if not isinstance(user.username, type(None)):
-				if str(user.username[-3:]).lower() == "bot":
-					continue
+		results = [] # list object member to save file
+
+		today = datetime.now()
+		last_week = today + timedelta(days=-7)
+		last_month = today + timedelta(days=-30)
+		for user in data:
+			try:
+				date_online_str = '19700102'
+				date_online = None
+				if not isinstance(user.username, type(None)):
+					if str(user.username[-3:]).lower() == "bot":
+						continue
+					else:
+						pass
+				if isinstance(user.status, UserStatusRecently):
+					date_online_str = 'online'
 				else:
-					pass
-			if isinstance(user.status, UserStatusRecently):
-				date_online_str = 'online'
-			else:
-				if isinstance(user.status, UserStatusLastMonth):
-					date_online = last_month
-				if isinstance(user.status, UserStatusLastWeek):
-					date_online = last_week
-				if isinstance(user.status, UserStatusOffline):
-					date_online = user.status.was_online
+					if isinstance(user.status, UserStatusLastMonth):
+						date_online = last_month
+					if isinstance(user.status, UserStatusLastWeek):
+						date_online = last_week
+					if isinstance(user.status, UserStatusOffline):
+						date_online = user.status.was_online
 
-				if date_online:
-					date_online_str = date_online.strftime("%Y%m%d")
-			tmp = {
-				'user_id': user.id,
-				'access_hash': user.access_hash,
-				'username': user.username,
-				"date_online": date_online_str
-			}
-			results.append(tmp)
-		except BaseException:
-			traceback.print_exc()
-			logging.error("Error get user")
+					if date_online:
+						date_online_str = date_online.strftime("%Y%m%d")
+				tmp = {
+					'user_id': user.id,
+					'access_hash': user.access_hash,
+					'username': user.username,
+					"date_online": date_online_str
+				}
+				results.append(tmp)
+			except BaseException:
+				traceback.print_exc()
+				logging.error("Error get user")
 
-	path_file = folder_data + str(group_source) + '.json'
-	with open(path_file, 'w', encoding='utf-8') as f:
-		json.dump(results, f, indent=4, ensure_ascii=False)
-	client.disconnect()
+		path_file = path_group + str(phone) + '.json'
+		with open(path_file, 'w', encoding='utf-8') as f:
+			json.dump(results, f, indent=4, ensure_ascii=False)
+		client.disconnect()

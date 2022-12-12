@@ -31,18 +31,17 @@ group_source = config['group_source']
 group_target = config['group_target']
 api_id = int(config['api_id'])
 api_hash = config['api_hash']
-total_time_in_round = 60
+total_time_in_round = 240
 total_user_big_sleep = 35
 time_big_sleep = 7200
-number_multiple = 1
+number_multiple = 10
 
 # list client
 clients = []
 
 # data user need add to group
-path_file = folder_data + str(group_source) + '.json'
-with open(path_file, 'r', encoding='utf-8') as f:
-	users = json.loads(f.read())
+path_folder_file = folder_data + '/' + str(group_source)
+users = read_data_member(path_folder_file)
 
 try:
 	with open(path_current_count, 'r') as f:
@@ -92,20 +91,19 @@ for phone in accounts:
 	if client.is_user_authorized():
 		# join group
 		client(JoinChannelRequest(group_target))
+		entity_group = client.get_entity(group_target)
 		clients.append({
 			'phone': phone,
-			'client': client
+			'client': client,
+			'group_target': entity_group
 		})
 	else:
 		logging.info(phone + ' login fail')
 
-assert len(clients) > 0
-
-# use first client to get entity_group_target
-entity_group_target = clients[0]['client'].get_entity(group_target)
-
 total_user = len(users)
 total_client = len(clients)
+logging.info('total member need to add : ' + str(total_user))
+logging.info('total account run: ' + str(total_client))
 
 # array to add multiple
 users_to_add = []
@@ -138,26 +136,30 @@ while i < total_user:
 	current_client = clients[count_added % total_client]
 
 	logging.info('Adding user id: ' + str(user['user_id']))
-	user_to_add = InputPeerUser(int(user['user_id']), int(user['access_hash']))
 
+	if current_client['phone'] not in user:
+		i += 1
+		logging.info('ignore user id: ' + str(user['user_id']) + ' by not have information for client: ' + current_client['phone'])
+		continue
+
+	user_to_add = InputPeerUser(int(user[current_client['phone']]['user_id']), int(user[current_client['phone']]['access_hash']))
 	users_to_add.append(user_to_add)
 
 	if len(users_to_add) < number_multiple and i != total_user - 1:
 		# if not enough in one multiple add or not last item
-		print('continue adding')
+		logging.info('continue adding')
 		i += 1
 		continue
 
-	print('len of: ' + str(len(users_to_add)))
-	print(users_to_add)
-	status_add = add_multiple_member_to_group(current_client['client'], entity_group_target, users_to_add)
+	logging.info('len of: ' + str(len(users_to_add)))
+	status_add = add_multiple_member_to_group(current_client['client'], current_client['group_target'], users_to_add)
 
 	# reset
 	users_to_add = []
 
 	logging.info("status_add: " + status_add)
 	if status_add == 'SUCCESS':
-		logging.info('Added member ' + str(user['user_id']) + ' successfully ;-)')
+		logging.info('Added member ' + str(user['user_id']) + ' successfully ;-)')	
 		logging.info('sleep: ' + str(total_time_in_round / total_client))
 		time.sleep(total_time_in_round / total_client)
 		count_added += 1
@@ -171,8 +173,12 @@ while i < total_user:
 		# cal total_client
 		total_client = len(clients)
 
-	if status_add == 'USER_PRIVACY' or status_add == 'ERROR_OTHER':
+	if status_add == 'USER_PRIVACY':
 		logging.info(status_add + ', skip user')
+
+	if status_add == 'ERROR_OTHER':
+		logging.info(status_add + ', skip user')
+		time.sleep(total_time_in_round / total_client)
 
 
 	# if status_add is not FLOOD and FLOOD_WAIT
