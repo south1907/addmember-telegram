@@ -1,10 +1,21 @@
+//create new file named as 'config.json' and paste below code in config.json and replace your details.
+
 {
-	"group_source": "atmcommunityvn",
-	"group_target": "ATMCommunityOfficial",
-	"api_id": 1234566,
-	"api_hash": "57c6f3c72c2f21676d53be2eXXXXXX",
-	"from_date_active": "20201114",
-	"accounts": [
-		"+84XXX"
-	]
+//Enter the name of the group from which you want to scrape members.
+"group_source": "group_name",
+
+//Enter the name of the group to which you want to add members.
+"group_target": "your_group_name",
+
+//Enter your Telegram API id (if you don't know watch tutorial)
+"api_id": 1234566,
+
+//Enter your Telegram API hash 
+"api_hash": "57c6f3c72c2f21676d53be2eXXXXXX",
+"from_date_active": "20201114",
+
+//Enter mobiles numbers with your country code and separated it by comma.
+"accounts": [
+"+91XXX"
+]
 }
