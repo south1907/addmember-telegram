@@ -8,11 +8,12 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
 
 ## Requirement
-* Environment of python 3 (Linux, Window)
+* The environment of python 3 (Linux, Windows)
 * Need about 20 accounts to run (Switches accounts automatically when blocked)
-* Your group must have username (public group)
-* Account have permission add member to your Target Group (not need join, script will be auto join target group)
-* Source group is public group or accounts have joined Source Group
+* Your group must have a username (public group)
+* Account have permission to add members to your Target Group (not need to join, the script will be auto join target group)
+* Source group is a public group or accounts have joined Source Group
+
 
 ![Target Group is public](images/public-group.png)
 
@@ -23,7 +24,7 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 <details>
   <summary>Show more</summary>
 
-  Note: On Window, use `pip` instead of `pip3`, `python` instead of `python3`
+  Note: On Windows, use `pip` instead of `pip3`, `python` instead of `python3`
   
  * Step 1: Install package `telethon` `readchar`
  ```
@@ -40,7 +41,7 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
  Note: 
  
- * Step 2: create file config.json base on config.example.json
+ * Step 2: Create file config.json base on config.example.json
  
  
  ```
@@ -93,7 +94,7 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 	* after adding 1 member, sleep 120s / total_client. If you have 2 accounts, it will sleep 60s
 	* after each account adds 35 members --> sleep 2 hours
 	* Remove account when there is a Flood, Flood Wait Error
-	* Break if there are no more accounts
+	* Break (press CTRL + C) if there are no more accounts
 
  Note: If your account gets blocked, go to https://web.telegram.org/k/#@SpamBot and chat /start to see the time the ban would be lifted
 
