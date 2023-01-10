@@ -10,3 +10,5 @@ data/*
 config.json
 current_count.txt
 
+data-log/*
+!data-log/__init__
