@@ -132,8 +132,7 @@ def write_log_processed(path, list_processed):
 def read_log_processed(path):
 	"""
 	:param path: path
-	:param current_index: current_index
-	:return: void
+	:return: list member processed
 
 	"""
 	result = []
