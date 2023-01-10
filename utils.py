@@ -3,7 +3,7 @@ import os
 import json
 from telethon import sync, TelegramClient, events
 from telethon.tl.functions.channels import GetParticipantsRequest
-from telethon.tl.types import ChannelParticipantsSearch
+from telethon.tl.types import ChannelParticipantsSearch, ChannelParticipantsRecent
 from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError, FloodWaitError
 from telethon.tl.functions.channels import InviteToChannelRequest
 import traceback
@@ -22,24 +22,52 @@ def get_member_by_group_username(client, group_username):
 	Get all member of group by group username
 	"""
 	all_data = [] # list telethon.tl.types.User
+	checklist_id = [] # list id
 	
 	entity = client.get_entity(group_username)
 	limit = 200
 	my_filter = ChannelParticipantsSearch('')
 
-	i = 0
-	while True:
-		offset = limit * i
-		user_list = client(GetParticipantsRequest(entity, my_filter, offset=offset, limit=limit, hash=0))
+	# check member > 10000
+	user_list_check = client(GetParticipantsRequest(entity, my_filter, offset=9900, limit=100, hash=0))
 
-		if not user_list.users:
-			logging.info('get member done')
-			break
-		
-		all_data.extend(user_list.users)
+	if not user_list_check.users:
+		logging.info('member < 10k, use normal get')
+		i = 0
+		while True:
+			offset = limit * i
+			print(offset)
+			user_list = client(GetParticipantsRequest(entity, my_filter, offset=offset, limit=limit, hash=0))
 
-		i += 1
+			if not user_list.users:
+				logging.info('get member done')
+				break
+			
+			all_data.extend(user_list.users)
 
+			i += 1
+	else:
+		logging.info('member > 10k, use search all character to get')
+		queryKey = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+		for key in queryKey:
+			offset = 0
+			while True:
+				participants = client(GetParticipantsRequest(
+					entity, ChannelParticipantsSearch(key), offset, limit,
+					hash=0
+				))
+				if not participants.users:
+					break
+				for user in participants.users:
+					try:
+						if user.id not in checklist_id:
+							all_data.append(user)
+							checklist_id.append(user.id)
+					except:
+						pass
+
+				offset += len(participants.users)
 	return all_data
 
 def get_list_user_id_of_group(client, group_username):
