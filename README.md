@@ -17,7 +17,11 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
 ![Target Group is public](images/public-group.png)
 
+
 ### Guide line
+
+[View tutorial post](https://wedevauto.com/tutorial-tool-auto-add-member-telegram)
+
 
 [Video Tutorial](https://youtu.be/qnNsgHCMQYk)
 
@@ -94,7 +98,6 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 	* after adding 1 member, sleep 120s / total_client. If you have 2 accounts, it will sleep 60s
 	* after each account adds 35 members --> sleep 2 hours
 	* Remove account when there is a Flood, Flood Wait Error
-	* Break (press CTRL + C) if there are no more accounts
 
  Note: If your account gets blocked, go to https://web.telegram.org/k/#@SpamBot and chat /start to see the time the ban would be lifted
 
@@ -106,11 +109,6 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
  and you must wait 77464 seconds
  
- > You can Stop The script By crtl+z or crtl+c. type y
-
- Note: current_count.txt save current index. If It is interupt, please check number index in file. If note current index (base on log in Terminal), edit it to correct and re-run.
-
- ![Current index](images/current-index.png)
 
 </details>
 
