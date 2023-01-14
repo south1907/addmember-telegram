@@ -20,7 +20,7 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
 ### Guide line
 
-[View tutorial post](https://wedevauto.com/tutorial-tool-auto-add-member-telegram)
+[Post Tutorial](https://wedevauto.com/tutorial-tool-auto-add-member-telegram)
 
 
 [Video Tutorial](https://youtu.be/qnNsgHCMQYk)
