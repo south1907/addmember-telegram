@@ -52,4 +52,6 @@ Your donation will make me have more motivation to research, update, turning, bu
 
 ## Special Thanks
 
-Updating
+| No | Name    | Date    |
+| :---:   | :---: | :---: |
+| 1 | bluexephoss   | 03/11/2022   |
