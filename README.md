@@ -9,7 +9,7 @@ Use `Python` to add member from Source Group to Target Group (migrate members of
 
 ### Guide line
 
-Post Tutorial: [English](https://wedevauto.com/tutorial-tool-auto-add-member-telegram) [Tiếng Việt](https://wedevauto.com/vi/huong-dan-tool-them-thanh-vien-vao-group-telegram/)
+Post Tutorial: [English](https://codechualanh.com/tutorial-tool-auto-add-member-telegram/) [Tiếng Việt](https://codechualanh.com/vi/huong-dan-tool-them-thanh-vien-vao-group-telegram/)
 
 
 [Video Tutorial](https://youtu.be/qnNsgHCMQYk)
